@@ -131,11 +131,13 @@ module.exports = {
       '@assets': path.join(SRC, 'assets'),
       '@components': path.join(SRC, 'components'),
       '@constants': path.join(SRC, 'constants'),
+      '@hocs': path.join(SRC, 'hocs'),
       '@pages': path.join(SRC, 'pages'),
       '@services': path.join(SRC, 'services'),
       '@styles': path.join(SRC, 'styles'),
       '@state': path.join(SRC, 'state'),
       '@utils': path.join(SRC, 'utils'),
+      '@vars': path.join(SRC, 'styles/_vars.scss'),
     },
   },
   devServer: {
