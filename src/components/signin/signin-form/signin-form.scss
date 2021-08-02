@@ -1,0 +1,31 @@
+@import '@vars';
+
+.signin-form {
+    &__item {
+        margin-bottom: 15px;
+    }
+    &__foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__access {
+        a {
+            display: inline-block;
+            vertical-align: top;
+            font-size: 12px;
+            line-height: 1.2;
+            font-weight: 400;
+            color: $color-blue;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color $time-trs;
+            &:hover {
+                color: $color-green;
+            }            
+        }
+    }
+    &__submit {
+        
+    }
+}

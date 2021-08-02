@@ -1,0 +1,48 @@
+@import '@vars';
+
+.signin {
+    width: 100%;
+    min-height: 100vh;
+    background-color: $color-gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__wrapper {
+        width: 100%;
+        max-width: 380px;
+    }
+    &__head {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+    }
+    &__logo {
+        margin-right: 12px;
+        img {
+            display: block;
+            width: 45px;
+            height: 45px;
+        }
+    }
+    &__title {
+        font-size: 24px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: $color-text1;
+    }
+    &__body {
+        background: #FFFFFF;
+        padding: 20px 17px;
+        box-shadow: 0px 1px 0px rgba($color-text3, 0.11), 0px 2px 4px rgba($color-text3, 0.12), 0px 5px 5px rgba($color-text3, 0.06), 0px 3.5px 35px rgba($color-text3, 0.1);
+        border-radius: 9px;
+    }
+    &__subtitle {
+        font-size: 18px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: $color-text1;
+        text-align: center;
+        margin-bottom: 35px;
+    }
+}
