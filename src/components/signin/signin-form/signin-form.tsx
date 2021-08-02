@@ -1,38 +1,72 @@
 import { FC } from 'react';
+import { Formik, FormikHelpers } from 'formik';
 
 import { Button } from '@components/common/button';
 import { Input } from '@components/common/input/input';
 
 import './signin-form.scss';
 
+import { SigninSchema } from './schema';
+import { FieldProps, SigninSchemaProps } from './types';
+
 export const SigninForm: FC = () => {
-    const fields = [
+    const initialValues: SigninSchemaProps = {
+        email: '',
+        password: '',
+    };
+
+    const fields: FieldProps[] = [
         {
+            name: 'email',
             id: 'signin-email',
             type: 'email',
             label: 'Почта',
         },
         {
+            name: 'password',
             id: 'signin-password',
             type: 'password',
             label: 'Пароль',
         },
     ];
+
+    const submitHandle = (
+        values: SigninSchemaProps,
+        { resetForm }: FormikHelpers<SigninSchemaProps>
+    ) => {
+        console.log(values);
+        resetForm();
+    };
+
     return (
-        <div className='signin-form'>
-            {fields.map(({ id, type, label }) => (
-                <div className='signin-form__item' key={id}>
-                    <Input id={id} type={type} label={label} />
-                </div>
-            ))}
-            <div className='signin-form__foot'>
-                <div className='signin-form__access'>
-                    <a href='/'>Запросить доступ</a>
-                </div>
-                <div className='signin-form__submit'>
-                    <Button>Войти</Button>
-                </div>
-            </div>
-        </div>
+        <Formik
+            initialValues={initialValues}
+            validationSchema={SigninSchema}
+            onSubmit={submitHandle}
+        >
+            {({ handleSubmit, errors, touched }) => (
+                <form onSubmit={handleSubmit} className='signin-form'>
+                    {fields.map(({ name, id, type, label }) => (
+                        <div className='signin-form__item' key={id}>
+                            <Input
+                                error={Boolean(errors[name] && touched[name])}
+                                name={name}
+                                id={id}
+                                type={type}
+                                label={label}
+                            />
+                        </div>
+                    ))}
+                    <div className='signin-form__foot'>
+                        <div className='signin-form__access'>
+                            <a href='/'>Запросить доступ</a>
+                        </div>
+                        <div className='signin-form__submit'>
+                            <Button submit>Войти</Button>
+                        </div>
+                    </div>
+                </form>
+            )}
+        </Formik>
     );
 };
