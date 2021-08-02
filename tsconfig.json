@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "lib": ["dom", "ESNext"],
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "target": "ES6",
+        "jsx": "react-jsx",
+        "importHelpers": true,
+        "noUnusedLocals": true,
+        "esModuleInterop": true,
+        "strict": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "skipLibCheck": true,
+        "declaration": false,
+        "sourceMap": false,
+        "importsNotUsedAsValues": "preserve",
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": "./",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "paths": {
+            "@assets/*": ["src/assets/*"],
+            "@components/*": ["src/components/*"],
+            "@constants/*": ["src/constants/*"],
+            "@pages/*": ["src/pages/*"],
+            "@services/*": ["src/services/*"],
+            "@state/*": ["src/state/*"],
+            "@styles/*": ["src/styles/*"],
+            "@utils/*": ["src/utils/*"],
+        },
+        "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"]
+    },
+    "include": ["src", "custom.d.ts", "./node_modules/@types"],
+    "exclude": ["**/*.js", "node_modules", "dist"]
+}
