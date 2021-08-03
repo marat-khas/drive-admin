@@ -24,6 +24,7 @@
             "@components/*": ["src/components/*"],
             "@constants/*": ["src/constants/*"],
             "@hocs/*": ["src/hocs/*"],
+            "@hooks/*": ["src/hooks/*"],
             "@pages/*": ["src/pages/*"],
             "@services/*": ["src/services/*"],
             "@state/*": ["src/state/*"],

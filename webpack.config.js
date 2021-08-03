@@ -132,6 +132,7 @@ module.exports = {
       '@components': path.join(SRC, 'components'),
       '@constants': path.join(SRC, 'constants'),
       '@hocs': path.join(SRC, 'hocs'),
+      '@hooks': path.join(SRC, 'hooks'),
       '@pages': path.join(SRC, 'pages'),
       '@services': path.join(SRC, 'services'),
       '@styles': path.join(SRC, 'styles'),
