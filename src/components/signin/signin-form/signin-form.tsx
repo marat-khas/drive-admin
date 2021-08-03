@@ -1,8 +1,11 @@
 import { FC } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Formik, FormikHelpers } from 'formik';
 
 import { Button } from '@components/common/button';
 import { Input } from '@components/common/input/input';
+import { UserRegisterAction } from '@state/user/actions';
 
 import './signin-form.scss';
 
@@ -10,6 +13,9 @@ import { SigninSchema } from './schema';
 import { FieldProps, SigninSchemaProps } from './types';
 
 export const SigninForm: FC = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const initialValues: SigninSchemaProps = {
         email: '',
         password: '',
@@ -31,10 +37,18 @@ export const SigninForm: FC = () => {
     ];
 
     const submitHandle = (
-        values: SigninSchemaProps,
+        { email, password }: SigninSchemaProps,
         { resetForm }: FormikHelpers<SigninSchemaProps>
     ) => {
-        console.log(values);
+        dispatch(
+            UserRegisterAction(
+                {
+                    username: email,
+                    password,
+                },
+                history
+            )
+        );
         resetForm();
     };
 
@@ -46,21 +60,22 @@ export const SigninForm: FC = () => {
         >
             {({ handleSubmit, errors, touched }) => (
                 <form onSubmit={handleSubmit} className='signin-form'>
-                    {fields.map(({ name, id, type, label }) => (
-                        <div className='signin-form__item' key={id}>
-                            <Input
-                                error={Boolean(errors[name] && touched[name])}
-                                name={name}
-                                id={id}
-                                type={type}
-                                label={label}
-                            />
-                        </div>
-                    ))}
+                    <div className='signin-form__body'>
+                        {fields.map(({ name, id, type, label }) => (
+                            <div className='signin-form__item' key={id}>
+                                <Input
+                                    error={Boolean(
+                                        errors[name] && touched[name]
+                                    )}
+                                    name={name}
+                                    id={id}
+                                    type={type}
+                                    label={label}
+                                />
+                            </div>
+                        ))}
+                    </div>
                     <div className='signin-form__foot'>
-                        <div className='signin-form__access'>
-                            <a href='/'>Запросить доступ</a>
-                        </div>
                         <div className='signin-form__submit'>
                             <Button submit>Войти</Button>
                         </div>
