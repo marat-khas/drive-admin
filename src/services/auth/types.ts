@@ -13,3 +13,15 @@ export type RegisterResponse = UserData;
 export type OauthRequest = Pick<UserData, 'username' | 'password'>;
 
 export type OauthResponse = User;
+
+export type RefreshRequest = {
+    refresh_token: string;
+};
+
+export type RefreshResponse = User;
+
+export type LogoutRequest = {
+    access_token: string;
+};
+
+export type LogoutResponse = string;

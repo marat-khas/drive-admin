@@ -1,6 +1,5 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { Formik, FormikHelpers } from 'formik';
 
 import { Button } from '@components/common/button';
@@ -14,7 +13,6 @@ import { FieldProps, SigninSchemaProps } from './types';
 
 export const SigninForm: FC = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const initialValues: SigninSchemaProps = {
         email: '',
@@ -44,23 +42,17 @@ export const SigninForm: FC = () => {
     ) => {
         if (mode === 'oauth') {
             dispatch(
-                UserOauthAction(
-                    {
-                        username: email,
-                        password,
-                    },
-                    history
-                )
+                UserOauthAction({
+                    username: email,
+                    password,
+                })
             );
         } else {
             dispatch(
-                UserRegisterAction(
-                    {
-                        username: email,
-                        password,
-                    },
-                    history
-                )
+                UserRegisterAction({
+                    username: email,
+                    password,
+                })
             );
         }
         resetForm();

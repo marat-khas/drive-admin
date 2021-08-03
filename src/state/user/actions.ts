@@ -1,9 +1,12 @@
-import { History } from 'history';
 import { Dispatch } from 'redux';
 
-import { ROUTES } from '@constants/routes';
-import { oauth, register } from '@services/auth';
-import { OauthRequest, RegisterRequest } from '@services/auth/types';
+import { logout, oauth, refresh, register } from '@services/auth';
+import {
+    LogoutRequest,
+    OauthRequest,
+    RefreshRequest,
+    RegisterRequest,
+} from '@services/auth/types';
 import {
     LoadingEndAction,
     LoadingStartAction,
@@ -12,18 +15,18 @@ import {
 
 import { User, UserActionTypes, UserAuth } from './types';
 
-export const UserAuthAction = (data: User): UserAuth => ({
+export const UserAuthAction = (data: User | null): UserAuth => ({
     type: UserActionTypes.USER_AUTH,
     payload: data,
 });
 
 export const UserOauthAction =
-    (data: OauthRequest, history: History) => (dispatch: Dispatch<any>) => {
+    (data: OauthRequest) => (dispatch: Dispatch<any>) => {
         dispatch(LoadingStartAction('Авторизация ...'));
         oauth(data)
             .then((user) => {
+                localStorage.setItem('refresh_token', user.refresh_token);
                 dispatch(UserAuthAction(user));
-                history.push(ROUTES.ADMIN);
                 dispatch(
                     ModalShowAction({
                         head: 'Добро пожаловать!',
@@ -45,11 +48,11 @@ export const UserOauthAction =
     };
 
 export const UserRegisterAction =
-    (data: RegisterRequest, history: History) => (dispatch: Dispatch<any>) => {
+    (data: RegisterRequest) => (dispatch: Dispatch<any>) => {
         dispatch(LoadingStartAction('Регистрация ...'));
         register(data)
             .then(() => {
-                dispatch(UserOauthAction(data, history));
+                dispatch(UserOauthAction(data));
             })
             .catch((error) => {
                 dispatch(
@@ -61,5 +64,47 @@ export const UserRegisterAction =
             })
             .finally(() => {
                 dispatch(LoadingEndAction('Регистрация ...'));
+            });
+    };
+
+export const UserRefreshAction =
+    (data: RefreshRequest) => (dispatch: Dispatch<any>) => {
+        dispatch(LoadingStartAction('Обновление данных ...'));
+        refresh(data)
+            .then((user) => {
+                localStorage.setItem('refresh_token', user.refresh_token);
+                dispatch(UserAuthAction(user));
+            })
+            .catch((error) => {
+                dispatch(
+                    ModalShowAction({
+                        head: 'Ошибка!',
+                        body: error.response.data,
+                    })
+                );
+            })
+            .finally(() => {
+                dispatch(LoadingEndAction('Обновление данных ...'));
+            });
+    };
+
+export const UserLogoutAction =
+    (data: LogoutRequest) => (dispatch: Dispatch<any>) => {
+        dispatch(LoadingStartAction('Выход из учетной записи ...'));
+        logout(data)
+            .then(() => {
+                localStorage.removeItem('refresh_token');
+                dispatch(UserAuthAction(null));
+            })
+            .catch((error) => {
+                dispatch(
+                    ModalShowAction({
+                        head: 'Ошибка!',
+                        body: error.response.data,
+                    })
+                );
+            })
+            .finally(() => {
+                dispatch(LoadingEndAction('Выход из учетной записи ...'));
             });
     };
