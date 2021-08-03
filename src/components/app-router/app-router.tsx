@@ -28,7 +28,7 @@ export const AppRouter: FC = () => {
     return (
         <Switch>
             <GuestRoute path={ROUTES.MAIN} exact component={Main} auth={auth} />
-            <AuthRoute path={ROUTES.ADMIN} component={Admin} auth={auth} />
+            <AuthRoute path={ROUTES.ORDERS} component={Admin} auth={auth} />
         </Switch>
     );
 };

@@ -1,0 +1,61 @@
+@import '@vars';
+
+.nav-item {
+    box-shadow: inset 0px -1px 0px #E1E5EB;
+    &__link {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px 28px;
+        text-decoration: none;
+        cursor: pointer;
+        &:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 4px;
+            height: 0;
+            transform: translateY(-50%);
+            transition: height $time-trs, background-color $time-trs;
+        }
+    }
+    
+    &.isActive &__link:before {
+        height: 100%;
+        background-color: $color-blue;
+    }
+    &__ico {
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        svg {
+            max-width: 100%;
+            max-height: 100%;
+            path {
+                fill: #CACEDB;
+                transition: fill $time-trs;
+
+            }
+        }
+    }
+    &__link:hover &__ico svg path,
+    &.isActive &__link &__ico svg path {
+        fill: $color-blue;
+    }
+    &__label {
+        font-size: 15px;
+        line-height: 1.15;
+        font-weight: 400;
+        color: $color-text1;
+        transition: color $time-trs;
+    }
+    &__link:hover &__label,
+    &.isActive &__link &__label {
+        color: $color-blue;
+    }
+}

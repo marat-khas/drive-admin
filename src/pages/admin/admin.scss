@@ -1,0 +1,67 @@
+@import '@vars';
+
+.admin {
+    background-color: $color-gray;
+    &__wrapper {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        align-items: stretch;
+        justify-content: flex-start;
+    }
+    &__sidebar {
+        position: relative;
+        width: 285px;
+        background: #FFF;
+        box-shadow: 0 1px 75px rgba($color-text3, 0.11), 0 2px 4px rgba($color-text3, 0.12), 0 8px 11px rgba($color-text3, 0.1), 0 4px 18px rgba($color-text3, 0.1);
+        z-index: 1;
+    }
+    &__main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    &__head {
+        width: 100%;
+        min-height: 68px;
+        background: #FFF;
+        box-shadow: 0 3px 10px rgba($color-text3, 0.12);        
+    }
+    &__body {
+        width: 100%;
+        flex: 1;
+        padding: 28px;
+    }
+    &__foot {
+        width: 100%;
+        min-height: 68px;
+        background: #FFF;
+        box-shadow: 0 -1px 0 rgba($color-text3, 0.12); 
+    }
+}
+
+.admin-sidebar {
+    &__head {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 68px;
+        padding-left: 49px;
+        box-shadow: 0px 1px 0px rgba($color-text3, 0.12);
+    }
+    &__logo {
+        margin-right: 8px;
+        svg {
+            width: 22px;
+            height: 22px;
+        }
+    }
+    &__name {
+        font-size: 16px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: $color-text1;
+    }
+}

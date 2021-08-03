@@ -12,7 +12,7 @@ interface GuestRouteProps extends Omit<RouteProps, 'component'> {
 export const GuestRoute: FC<GuestRouteProps> = ({
     component: Component,
     auth,
-    redirectTo = ROUTES.ADMIN,
+    redirectTo = ROUTES.ORDERS,
     ...rest
 }) => (
     <Route

@@ -1,4 +1,6 @@
 export const ROUTES = {
     MAIN: '/',
-    ADMIN: '/admin',
+    ORDERS: '/admin',
+    CARD: '/admin/card',
+    CARS: '/admin/cars',
 };
