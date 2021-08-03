@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Formik, FormikHelpers } from 'formik';
 
 import { Button } from '@components/common/button';
 import { Input } from '@components/common/input/input';
-import { UserRegisterAction } from '@state/user/actions';
+import { UserOauthAction, UserRegisterAction } from '@state/user/actions';
 
 import './signin-form.scss';
 
@@ -36,19 +36,33 @@ export const SigninForm: FC = () => {
         },
     ];
 
+    const [mode, setMode] = useState('oauth');
+
     const submitHandle = (
         { email, password }: SigninSchemaProps,
         { resetForm }: FormikHelpers<SigninSchemaProps>
     ) => {
-        dispatch(
-            UserRegisterAction(
-                {
-                    username: email,
-                    password,
-                },
-                history
-            )
-        );
+        if (mode === 'oauth') {
+            dispatch(
+                UserOauthAction(
+                    {
+                        username: email,
+                        password,
+                    },
+                    history
+                )
+            );
+        } else {
+            dispatch(
+                UserRegisterAction(
+                    {
+                        username: email,
+                        password,
+                    },
+                    history
+                )
+            );
+        }
         resetForm();
     };
 
@@ -76,8 +90,25 @@ export const SigninForm: FC = () => {
                         ))}
                     </div>
                     <div className='signin-form__foot'>
+                        <div className='signin-form__access'>
+                            <button
+                                onClick={() => {
+                                    setMode('register');
+                                }}
+                                type='submit'
+                            >
+                                Запросить доступ
+                            </button>
+                        </div>
                         <div className='signin-form__submit'>
-                            <Button submit>Войти</Button>
+                            <Button
+                                onClick={() => {
+                                    setMode('oauth');
+                                }}
+                                submit
+                            >
+                                Войти
+                            </Button>
                         </div>
                     </div>
                 </form>

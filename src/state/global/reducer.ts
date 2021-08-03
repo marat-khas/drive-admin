@@ -25,7 +25,7 @@ export const GlobalReducer = (
         case GlobalActionTypes.MODAL_SHOW: {
             return {
                 ...state,
-                modal: action.payload,
+                modal: { ...action.payload },
             };
         }
         case GlobalActionTypes.MODAL_HIDE: {

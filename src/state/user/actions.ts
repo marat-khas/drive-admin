@@ -35,7 +35,7 @@ export const UserOauthAction =
                 dispatch(
                     ModalShowAction({
                         head: 'Ошибка!',
-                        body: error,
+                        body: error.response.data,
                     })
                 );
             })
@@ -55,7 +55,7 @@ export const UserRegisterAction =
                 dispatch(
                     ModalShowAction({
                         head: 'Ошибка!',
-                        body: error,
+                        body: error.response.data,
                     })
                 );
             })
