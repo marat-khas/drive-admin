@@ -1,0 +1,46 @@
+@import '@vars';
+
+.user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    &__avatar {
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 12px;
+        img {
+            display: block;
+            width: 42px;
+            height: 42px;
+        }
+    }
+    &__login {
+        position: relative;
+        width: 105px;   
+        padding-right: 15px;
+        font-size: 15px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: $color-text3;
+        transition: color $time-trs;
+        span {
+            display: block;
+            overflow: hidden;
+        }
+        &:after {
+            content: "";
+            display: block;
+            width: 9px;
+            height: 5px;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: -3px;
+            background: url('@assets/img/ico_dropdown.svg') no-repeat center center / contain;
+        }
+    }
+    &:hover &__login {
+        color: $color-blue;
+    }
+}

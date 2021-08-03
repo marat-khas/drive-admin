@@ -1,0 +1,36 @@
+@import '@vars';
+
+.notification {
+    cursor: pointer;
+    position: relative;
+    &__ico {
+        svg {
+            display: block;
+            width: 18px;
+            height: 21px;
+            path {
+                fill: #818EA3;
+                transition: fill $time-trs;
+            }
+        }
+    }
+    &:hover &__ico svg path {
+        fill: $color-blue;
+    }
+    &__counter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: -8px;
+        bottom: -8px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background-color: $color-red;
+        font-size: 9px;
+        line-height: 1;
+        font-weight: 600;
+        color: #fff;
+    }
+}

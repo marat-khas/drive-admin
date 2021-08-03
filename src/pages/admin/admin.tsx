@@ -3,6 +3,9 @@ import { Route, Switch } from 'react-router-dom';
 
 import Logo from '@assets/img/logo.svg';
 import { Nav } from '@components/nav';
+import { Notification } from '@components/notification';
+import { Search } from '@components/search';
+import { User } from '@components/user';
 import { ROUTES } from '@constants/routes';
 
 import './admin.scss';
@@ -25,7 +28,19 @@ export const Admin: FC = () => (
                 </div>
             </aside>
             <div className='admin__main'>
-                <header className='admin__head' />
+                <header className='admin__head'>
+                    <div className='admin-head'>
+                        <div className='admin-head__item admin-head__item--search'>
+                            <Search />
+                        </div>
+                        <div className='admin-head__item admin-head__item--notification'>
+                            <Notification />
+                        </div>
+                        <div className='admin-head__item admin-head__item--user'>
+                            <User />
+                        </div>
+                    </div>
+                </header>
                 <main className='admin__body'>
                     <Switch>
                         <Route exact path={ROUTES.ORDERS}>

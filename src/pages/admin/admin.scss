@@ -1,7 +1,7 @@
 @import '@vars';
 
 .admin {
-    background-color: $color-gray;
+    background-color: $color-gray-light;
     &__wrapper {
         width: 100%;
         min-height: 100vh;
@@ -12,6 +12,7 @@
     &__sidebar {
         position: relative;
         width: 285px;
+        flex-shrink: 0;
         background: #FFF;
         box-shadow: 0 1px 75px rgba($color-text3, 0.11), 0 2px 4px rgba($color-text3, 0.12), 0 8px 11px rgba($color-text3, 0.1), 0 4px 18px rgba($color-text3, 0.1);
         z-index: 1;
@@ -26,6 +27,7 @@
     &__head {
         width: 100%;
         min-height: 68px;
+        padding: 0 28px;
         background: #FFF;
         box-shadow: 0 3px 10px rgba($color-text3, 0.12);        
     }
@@ -63,5 +65,27 @@
         line-height: 1.2;
         font-weight: 400;
         color: $color-text1;
+    }
+}
+
+.admin-head {
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        &--search {
+            flex: 1;
+        }
+        &--notification {
+            padding: 0 26px;
+            box-shadow: 0.5px 0px 0px $color-gray, -0.5px 0px 0px $color-gray;
+        }
+        &--user {
+            padding-left: 26px;
+        }
     }
 }
