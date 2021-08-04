@@ -43,6 +43,35 @@
         background: #FFF;
         box-shadow: 0 -1px 0 rgba($color-text3, 0.12); 
     }
+    &__title {
+        font-size: 29px;
+        line-height: 1.15;
+        font-weight: 400;
+        color: $color-text1;
+        margin-bottom: 30px;
+    }
+    &__row {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin: 0 -14px;
+    }
+    &__col {
+        flex: 1;
+        padding: 0 14px;
+        &--card {
+            flex: inherit;
+            width: 335px;
+            flex-shrink: 0;
+        }
+    }
+    &__wrap {
+        padding: 20px;
+        background: #FFF;
+        box-shadow: 0px 2px 4px rgba($color-text3, 0.12);
+        border-radius: 9px;
+    }
 }
 
 .admin-sidebar {

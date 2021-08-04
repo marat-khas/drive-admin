@@ -45,13 +45,43 @@ export const Admin: FC = () => (
                 <main className='admin__body'>
                     <Switch>
                         <Route exact path={ROUTES.ORDERS}>
-                            <div>Заказы</div>
+                            <div className='admin__title'>
+                                <h1>Заказы</h1>
+                            </div>
+                            <div className='admin__row'>
+                                <div className='admin__col'>
+                                    <div className='admin__wrap'>[Заказы]</div>
+                                </div>
+                            </div>
                         </Route>
                         <Route path={ROUTES.CARS}>
-                            <div>Список авто</div>
+                            <div className='admin__title'>
+                                <h1>Entities</h1>
+                            </div>
+                            <div className='admin__row'>
+                                <div className='admin__col'>
+                                    <div className='admin__wrap'>
+                                        [Список авто]
+                                    </div>
+                                </div>
+                            </div>
                         </Route>
                         <Route path={ROUTES.CARD}>
-                            <div>Карточка автомобиля</div>
+                            <div className='admin__title'>
+                                <h1>Карточка автомобиля</h1>
+                            </div>
+                            <div className='admin__row'>
+                                <div className='admin__col admin__col--card'>
+                                    <div className='admin__wrap'>
+                                        [Автомобиль]
+                                    </div>
+                                </div>
+                                <div className='admin__col'>
+                                    <div className='admin__wrap'>
+                                        [Настройки]
+                                    </div>
+                                </div>
+                            </div>
                         </Route>
                         <Route>
                             <div>500 Error</div>
