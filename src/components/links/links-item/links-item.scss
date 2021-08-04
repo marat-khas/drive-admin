@@ -1,0 +1,15 @@
+@import '@vars';
+
+.links-item {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+    a {
+        text-decoration: none;
+        color: $color-blue;
+        transition: color $time-trs;
+        &:hover {
+            color: $color-green;
+        }
+    }
+}

@@ -1,0 +1,11 @@
+.links {
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: -4px -8px;
+    }
+    &__item {
+        padding: 4px 8px;
+    }
+}

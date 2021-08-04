@@ -39,6 +39,7 @@
     &__foot {
         width: 100%;
         min-height: 68px;
+        padding: 0 28px;
         background: #FFF;
         box-shadow: 0 -1px 0 rgba($color-text3, 0.12); 
     }
@@ -88,4 +89,18 @@
             padding-left: 26px;
         }
     }
+}
+
+.admin-foot {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-copyright {
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: $color-text4;
 }

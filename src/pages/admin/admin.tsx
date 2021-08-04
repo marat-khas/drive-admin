@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Logo from '@assets/img/logo.svg';
+import { Links } from '@components/links/links';
 import { Nav } from '@components/nav';
 import { Notification } from '@components/notification';
 import { Search } from '@components/search';
@@ -57,7 +58,18 @@ export const Admin: FC = () => (
                         </Route>
                     </Switch>
                 </main>
-                <footer className='admin__foot' />
+                <footer className='admin__foot'>
+                    <div className='admin-foot'>
+                        <div className='admin-foot__item'>
+                            <Links />
+                        </div>
+                        <div className='admin-foot__item'>
+                            <div className='admin-copyright'>
+                                Copyright © 2020 Simbirsoft
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
         <aside />
