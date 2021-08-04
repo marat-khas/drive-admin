@@ -5,6 +5,7 @@ import Logo from '@assets/img/logo.svg';
 import { Links } from '@components/links/links';
 import { Nav } from '@components/nav';
 import { Notification } from '@components/notification';
+import { Orders } from '@components/orders';
 import { Search } from '@components/search';
 import { User } from '@components/user';
 import { ROUTES } from '@constants/routes';
@@ -50,7 +51,9 @@ export const Admin: FC = () => (
                             </div>
                             <div className='admin__row'>
                                 <div className='admin__col'>
-                                    <div className='admin__wrap'>[Заказы]</div>
+                                    <div className='admin__wrap'>
+                                        <Orders />
+                                    </div>
                                 </div>
                             </div>
                         </Route>

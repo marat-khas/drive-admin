@@ -1,0 +1,59 @@
+@import "@vars";
+
+.radio {
+    input {
+      display: none;
+    }
+    label {
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+      padding-left: 20px;
+      font-size: 14px;
+      line-height: 1.2;
+      font-weight: 300;
+      color: #998;
+      cursor: pointer;
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 12px;
+        height: 12px;
+        margin-top: -6px;
+        border-radius: 50%;
+        box-sizing: border-box;
+      }
+      &:before {
+        border: 1px solid #998;
+        transition: transform $time-trs, opacity $time-trs;
+      }
+      &:after {
+        border: 3px solid $color-green;
+        opacity: 0;
+        transform: scale(0);
+        transition: transform $time-trs, opacity $time-trs;
+      }
+    }
+    input:not(:checked) + label {
+      color: $color-black;
+      &:hover {
+        &:before {
+          border-color: $color-black;
+        }
+      }
+    }
+    input:checked + label {
+      color: $color-black;
+      &:before {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+      &:after {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }

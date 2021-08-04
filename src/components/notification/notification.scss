@@ -7,7 +7,8 @@
     align-items: center;
     justify-content: center;
     padding: 0 26px;
-    box-shadow: 0.5px 0 0 $color-gray, -0.5px 0 0 $color-gray;
+    border-left: 0.5px solid $color-gray;
+    border-right: 0.5px solid $color-gray;
     &__btn {
         position: relative;
     }

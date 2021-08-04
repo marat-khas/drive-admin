@@ -1,0 +1,35 @@
+.order-item {
+    &__wrapper {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin: 0 -8px;
+    }
+    &__part {
+        padding: 0 8px;
+    }
+    &__car {
+
+    }
+    &__img {
+
+    }
+    &__desc {
+
+    }
+    &__props {
+
+    }
+    &__option {
+
+    }
+    &__price {
+
+    }
+    &__action {
+
+    }
+    &__btn {
+
+    }
+}
