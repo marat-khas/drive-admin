@@ -91,9 +91,9 @@ export const UserRefreshAction =
 export const UserLogoutAction =
     (data: LogoutRequest) => (dispatch: Dispatch<any>) => {
         dispatch(LoadingStartAction('Выход из учетной записи ...'));
+        localStorage.removeItem('refresh_token');
         logout(data)
             .then(() => {
-                localStorage.removeItem('refresh_token');
                 dispatch(UserAuthAction(null));
             })
             .catch((error) => {

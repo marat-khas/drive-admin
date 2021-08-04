@@ -16,14 +16,14 @@ export const AppRouter: FC = () => {
     const refreshToken = localStorage.getItem('refresh_token');
 
     useEffect(() => {
-        if (refreshToken) {
+        if (refreshToken && !auth) {
             dispatch(
                 UserRefreshAction({
                     refresh_token: refreshToken,
                 })
             );
         }
-    }, [dispatch, refreshToken]);
+    }, [auth, dispatch, refreshToken]);
 
     return (
         <Switch>

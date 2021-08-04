@@ -1,8 +1,16 @@
 @import '@vars';
 
 .notification {
+    height: 100%;
     cursor: pointer;
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 26px;
+    box-shadow: 0.5px 0 0 $color-gray, -0.5px 0 0 $color-gray;
+    &__btn {
+        position: relative;
+    }
     &__ico {
         svg {
             display: block;
