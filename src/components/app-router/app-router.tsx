@@ -7,7 +7,7 @@ import { AuthRoute } from '@hocs/auth-route';
 import { GuestRoute } from '@hocs/guest-route';
 import { useAuth } from '@hooks/use-auth';
 import { Admin } from '@pages/admin';
-import { Error500 } from '@pages/error500';
+import { Error404 } from '@pages/error404';
 import { Main } from '@pages/main';
 import { UserRefreshAction } from '@state/user/actions';
 
@@ -30,7 +30,7 @@ export const AppRouter: FC = () => {
         <Switch>
             <GuestRoute path={ROUTES.MAIN} exact component={Main} auth={auth} />
             <AuthRoute path={ROUTES.ORDERS} component={Admin} auth={auth} />
-            <Route component={Error500} />
+            <Route component={Error404} />
         </Switch>
     );
 };

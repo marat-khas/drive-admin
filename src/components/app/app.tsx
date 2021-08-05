@@ -7,6 +7,8 @@ import { Loader } from '@components/loader';
 import { Modal } from '@components/modal';
 import { store } from '@state/store';
 
+import './app.scss';
+
 export const App: FC = () => (
     <StrictMode>
         <Provider store={store}>
