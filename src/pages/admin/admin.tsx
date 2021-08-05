@@ -44,52 +44,54 @@ export const Admin: FC = () => (
                     </div>
                 </header>
                 <main className='admin__body'>
-                    <Switch>
-                        <Route exact path={ROUTES.ORDERS}>
-                            <div className='admin__title'>
-                                <h1>Заказы</h1>
-                            </div>
-                            <div className='admin__row'>
-                                <div className='admin__col'>
-                                    <div className='admin__wrap'>
-                                        <Orders />
+                    <div className='admin__in'>
+                        <Switch>
+                            <Route exact path={ROUTES.ORDERS}>
+                                <div className='admin__title'>
+                                    <h1>Заказы</h1>
+                                </div>
+                                <div className='admin__row'>
+                                    <div className='admin__col'>
+                                        <div className='admin__wrap'>
+                                            <Orders />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </Route>
-                        <Route path={ROUTES.CARS}>
-                            <div className='admin__title'>
-                                <h1>Entities</h1>
-                            </div>
-                            <div className='admin__row'>
-                                <div className='admin__col'>
-                                    <div className='admin__wrap'>
-                                        [Список авто]
+                            </Route>
+                            <Route path={ROUTES.CARS}>
+                                <div className='admin__title'>
+                                    <h1>Entities</h1>
+                                </div>
+                                <div className='admin__row'>
+                                    <div className='admin__col'>
+                                        <div className='admin__wrap'>
+                                            [Список авто]
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </Route>
-                        <Route path={ROUTES.CARD}>
-                            <div className='admin__title'>
-                                <h1>Карточка автомобиля</h1>
-                            </div>
-                            <div className='admin__row'>
-                                <div className='admin__col admin__col--card'>
-                                    <div className='admin__wrap'>
-                                        [Автомобиль]
+                            </Route>
+                            <Route path={ROUTES.CARD}>
+                                <div className='admin__title'>
+                                    <h1>Карточка автомобиля</h1>
+                                </div>
+                                <div className='admin__row'>
+                                    <div className='admin__col admin__col--card'>
+                                        <div className='admin__wrap'>
+                                            [Автомобиль]
+                                        </div>
+                                    </div>
+                                    <div className='admin__col'>
+                                        <div className='admin__wrap'>
+                                            [Настройки]
+                                        </div>
                                     </div>
                                 </div>
-                                <div className='admin__col'>
-                                    <div className='admin__wrap'>
-                                        [Настройки]
-                                    </div>
-                                </div>
-                            </div>
-                        </Route>
-                        <Route>
-                            <div>500 Error</div>
-                        </Route>
-                    </Switch>
+                            </Route>
+                            <Route>
+                                <div>500 Error</div>
+                            </Route>
+                        </Switch>
+                    </div>
                 </main>
                 <footer className='admin__foot'>
                     <div className='admin-foot'>

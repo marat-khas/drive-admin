@@ -1,12 +1,13 @@
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { ROUTES } from '@constants/routes';
 import { AuthRoute } from '@hocs/auth-route';
 import { GuestRoute } from '@hocs/guest-route';
 import { useAuth } from '@hooks/use-auth';
 import { Admin } from '@pages/admin';
+import { Error500 } from '@pages/error500';
 import { Main } from '@pages/main';
 import { UserRefreshAction } from '@state/user/actions';
 
@@ -29,6 +30,7 @@ export const AppRouter: FC = () => {
         <Switch>
             <GuestRoute path={ROUTES.MAIN} exact component={Main} auth={auth} />
             <AuthRoute path={ROUTES.ORDERS} component={Admin} auth={auth} />
+            <Route component={Error500} />
         </Switch>
     );
 };

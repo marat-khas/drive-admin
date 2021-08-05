@@ -55,6 +55,13 @@ export const Orders: FC = () => (
         </div>
         <div className='orders__items'>
             <OrdersItem />
+            <OrdersItem />
+            <OrdersItem />
+            <OrdersItem />
+            <OrdersItem />
+            <OrdersItem />
+            <OrdersItem />
+            <OrdersItem />
         </div>
         <div className='orders__pagination' />
     </div>

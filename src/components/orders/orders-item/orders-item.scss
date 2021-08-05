@@ -1,4 +1,10 @@
+@import '@vars';
+
 .order-item {
+    padding: 20px 0;
+    &:not(:last-child) {
+        border-bottom: 0.5px solid rgba($color-text3, 0.12);
+    }
     &__wrapper {
         display: flex;
         align-items: flex-start;
@@ -9,13 +15,33 @@
         padding: 0 8px;
     }
     &__car {
-
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin: 0 -8px;
     }
     &__img {
-
+        padding: 0 8px;
+        width: 140px;
+        img {
+            display: block;
+            max-width: 100%;
+            margin: 0 auto;
+        }
     }
     &__desc {
-
+        padding: 0 8px;
+        ul {
+            li {
+                font-size: 13px;
+                line-height: 1.2;
+                font-weight: 400;
+                color: $color-text1;
+                &:not(:last-child) {
+                    margin-bottom: 6px;
+                }
+            }
+        }
     }
     &__props {
 
@@ -24,12 +50,64 @@
 
     }
     &__price {
-
+        font-size: 24px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: $color-black;
     }
     &__action {
-
+        display: flex;
+        align-items: stretch;
+        justify-content: flex-start;
     }
     &__btn {
-
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 6px 8px;
+        min-width: 72px;
+        border-width: 1px 1px 1px 0;
+        border-style: solid;
+        border-color: #BECAD6;
+        border-radius: 0;
+        font-size: 11px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: $color-text3;
+        cursor: pointer;
+        background: transparent;
+        transition: color $time-trs;
+        &:hover {
+            color: $color-blue;
+        }
+        &:before {
+            content: "";
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
+            margin-right: 5px;
+        }
+        &--ok:before {
+            width: 8px;
+            height: 7px;
+            background-image: url('@assets/img/ico_ok.svg');
+        }
+        &--cancel:before {
+            width: 7px;
+            height: 7px;
+            background-image: url('@assets/img/ico_cancel.svg');
+        }
+        &--edit:before {
+            width: 2px;
+            height: 8px;
+            background-image: url('@assets/img/ico_change.svg');
+        }
+        &:first-child {
+            border-radius: 4px 0px 0px 4px;
+            border-left-width: 1px;
+        }
+        &:last-child {
+            border-radius: 0px 4px 4px 0px;
+        }
     }
 }
