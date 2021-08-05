@@ -9,7 +9,7 @@ export const UserReducer = (
         case UserActionTypes.USER_AUTH: {
             return {
                 ...state,
-                data: action.payload ? { ...action.payload } : null,
+                auth: action.payload,
             };
         }
         default:

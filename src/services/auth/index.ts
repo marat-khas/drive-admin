@@ -1,14 +1,15 @@
-import axios from 'axios';
-
 import {
-    API_URL,
+    CHECK_URL,
     LOGOUT_URL,
     OAUTH_URL,
     REFRESH_URL,
     REGISTER_URL,
 } from '@constants/urls';
+import { baseApi } from '@services/base';
 
 import {
+    CheckRequest,
+    CheckResponse,
     LogoutRequest,
     LogoutResponse,
     OauthRequest,
@@ -18,13 +19,6 @@ import {
     RegisterRequest,
     RegisterResponse,
 } from './types';
-
-const baseApi = axios.create({
-    baseURL: API_URL,
-    headers: {
-        'X-Api-Factory-Application-Id': process.env.APPLICATION_ID,
-    },
-});
 
 export const register = ({
     username,
@@ -65,6 +59,15 @@ export const oauth = ({
                 },
             }
         )
+        .then((response) => response.data);
+
+export const check = ({ access_token }: CheckRequest): Promise<CheckResponse> =>
+    baseApi
+        .get(CHECK_URL, {
+            headers: {
+                Authorization: `Bearer ${access_token}`,
+            },
+        })
         .then((response) => response.data);
 
 export const refresh = ({

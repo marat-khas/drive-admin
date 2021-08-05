@@ -1,7 +1,10 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Filter } from '@components/filter';
 import { OrdersItem } from '@components/orders/orders-item';
+import { OrderGetAction } from '@state/order/actions';
+import { getOrders } from '@state/selectors';
 
 import './orders.scss';
 
@@ -48,21 +51,37 @@ const filterItems = [
     },
 ];
 
-export const Orders: FC = () => (
-    <div className='orders'>
-        <div className='orders__filter'>
-            <Filter items={filterItems} />
+export const Orders: FC = () => {
+    const dispatch = useDispatch();
+
+    const orders = useSelector(getOrders);
+    const acessToken = localStorage.getItem('access_token');
+
+    useEffect(() => {
+        if (!orders && acessToken) {
+            dispatch(
+                OrderGetAction({
+                    access_token: acessToken,
+                })
+            );
+        }
+    }, [acessToken, dispatch, orders]);
+
+    return (
+        <div className='orders'>
+            <div className='orders__filter'>
+                <Filter items={filterItems} />
+            </div>
+            <div className='orders__items'>
+                {orders ? (
+                    orders?.map((order) => (
+                        <OrdersItem order={order} key={order.id} />
+                    ))
+                ) : (
+                    <p>Загрузка заказов ...</p>
+                )}
+            </div>
+            <div className='orders__pagination' />
         </div>
-        <div className='orders__items'>
-            <OrdersItem />
-            <OrdersItem />
-            <OrdersItem />
-            <OrdersItem />
-            <OrdersItem />
-            <OrdersItem />
-            <OrdersItem />
-            <OrdersItem />
-        </div>
-        <div className='orders__pagination' />
-    </div>
-);
+    );
+};

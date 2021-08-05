@@ -1,7 +1,8 @@
 import { Dispatch } from 'redux';
 
-import { logout, oauth, refresh, register } from '@services/auth';
+import { check, logout, oauth, refresh, register } from '@services/auth';
 import {
+    CheckRequest,
     LogoutRequest,
     OauthRequest,
     RefreshRequest,
@@ -12,10 +13,11 @@ import {
     LoadingStartAction,
     ModalShowAction,
 } from '@state/global/actions';
+import { OrderRecordAction } from '@state/order/actions';
 
-import { User, UserActionTypes, UserAuth } from './types';
+import { UserActionTypes, UserAuth } from './types';
 
-export const UserAuthAction = (data: User | null): UserAuth => ({
+export const UserAuthAction = (data: boolean): UserAuth => ({
     type: UserActionTypes.USER_AUTH,
     payload: data,
 });
@@ -25,8 +27,9 @@ export const UserOauthAction =
         dispatch(LoadingStartAction('Авторизация ...'));
         oauth(data)
             .then((user) => {
+                localStorage.setItem('access_token', user.access_token);
                 localStorage.setItem('refresh_token', user.refresh_token);
-                dispatch(UserAuthAction(user));
+                dispatch(UserAuthAction(true));
                 dispatch(
                     ModalShowAction({
                         head: 'Добро пожаловать!',
@@ -67,13 +70,34 @@ export const UserRegisterAction =
             });
     };
 
+export const UserCheckAction =
+    (data: CheckRequest) => (dispatch: Dispatch<any>) => {
+        dispatch(LoadingStartAction('Проверка пользователя ...'));
+        check(data)
+            .then(() => {
+                dispatch(UserAuthAction(true));
+            })
+            .catch((error) => {
+                dispatch(UserAuthAction(false));
+                dispatch(
+                    ModalShowAction({
+                        head: 'Ошибка!',
+                        body: error.response.data,
+                    })
+                );
+            })
+            .finally(() => {
+                dispatch(LoadingEndAction('Проверка пользователя ...'));
+            });
+    };
+
 export const UserRefreshAction =
     (data: RefreshRequest) => (dispatch: Dispatch<any>) => {
         dispatch(LoadingStartAction('Обновление данных ...'));
         refresh(data)
             .then((user) => {
-                localStorage.setItem('refresh_token', user.refresh_token);
-                dispatch(UserAuthAction(user));
+                localStorage.setItem('access_token', user.access_token);
+                dispatch(UserAuthAction(true));
             })
             .catch((error) => {
                 dispatch(
@@ -91,10 +115,12 @@ export const UserRefreshAction =
 export const UserLogoutAction =
     (data: LogoutRequest) => (dispatch: Dispatch<any>) => {
         dispatch(LoadingStartAction('Выход из учетной записи ...'));
+        localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         logout(data)
             .then(() => {
-                dispatch(UserAuthAction(null));
+                dispatch(UserAuthAction(false));
+                dispatch(OrderRecordAction(null));
             })
             .catch((error) => {
                 dispatch(

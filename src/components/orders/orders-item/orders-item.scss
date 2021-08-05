@@ -36,9 +36,13 @@
                 font-size: 13px;
                 line-height: 1.2;
                 font-weight: 400;
-                color: $color-text1;
+                color: $color-text3;
                 &:not(:last-child) {
                     margin-bottom: 6px;
+                }
+                span {
+                    color: $color-black;
+                    font-weight: 500;
                 }
             }
         }

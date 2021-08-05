@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Logo from '@assets/img/logo.svg';
+import { Error } from '@components/error';
 import { Links } from '@components/links/links';
 import { Nav } from '@components/nav';
 import { Notification } from '@components/notification';
@@ -88,7 +89,13 @@ export const Admin: FC = () => (
                                 </div>
                             </Route>
                             <Route>
-                                <div>500 Error</div>
+                                <div className='admin__error'>
+                                    <Error
+                                        code='500'
+                                        title='Что то пошло не так'
+                                        desc='Попробуйте перезагрузить страницу'
+                                    />
+                                </div>
                             </Route>
                         </Switch>
                     </div>

@@ -1,13 +1,5 @@
-export interface User {
-    token_type: string;
-    access_token: string;
-    expires_in: number;
-    refresh_token: string;
-    user_id: string;
-}
-
 export interface UserState {
-    data: User | null;
+    auth: boolean;
 }
 
 export enum UserActionTypes {
@@ -16,7 +8,7 @@ export enum UserActionTypes {
 
 export interface UserAuth {
     type: UserActionTypes.USER_AUTH;
-    payload: User | null;
+    payload: boolean;
 }
 
 export type UserAction = UserAuth;
