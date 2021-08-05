@@ -21,6 +21,7 @@
         color: $color-blue;
     }
     &--red {
+        background-color: $color-red;
         border-color: $color-red;
         &:hover {
             background-color: #fff;
@@ -28,6 +29,7 @@
         }
     }
     &--green {
+        background-color: $color-green;
         border-color: $color-green;
         &:hover {
             background-color: #fff;

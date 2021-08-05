@@ -39,6 +39,9 @@
             cursor: pointer;
             transition: background-color $time-trs, color $time-trs;
         }
+        &.isDisabled {
+            display: none;
+        }
         &.isActive a {
             background-color: $color-blue;
             color: #fff;

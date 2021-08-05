@@ -3,7 +3,7 @@ import { baseApi } from '@services/base';
 
 import { OrderRequest, OrderResponse } from './types';
 
-const ORDER_LIMIT_DEFAULT = 100;
+const ORDER_LIMIT_DEFAULT = 200;
 const ORDER_OFFSET_DEFAULT = 2500;
 
 export const getOrders = ({

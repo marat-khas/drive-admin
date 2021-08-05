@@ -1,4 +1,4 @@
-@import '@vars';
+@import "@vars";
 
 .order-item {
     padding: 20px 0;
@@ -12,7 +12,17 @@
         margin: 0 -8px;
     }
     &__part {
+        flex: 1;
         padding: 0 8px;
+        &--car {
+            flex: 2;
+        }
+        &--props {
+        }
+        &--price {
+        }
+        &--action {
+        }
     }
     &__car {
         display: flex;
@@ -48,10 +58,8 @@
         }
     }
     &__props {
-
     }
     &__option {
-
     }
     &__price {
         font-size: 24px;
@@ -72,7 +80,7 @@
         min-width: 72px;
         border-width: 1px 1px 1px 0;
         border-style: solid;
-        border-color: #BECAD6;
+        border-color: #becad6;
         border-radius: 0;
         font-size: 11px;
         line-height: 1.2;
@@ -94,17 +102,17 @@
         &--ok:before {
             width: 8px;
             height: 7px;
-            background-image: url('@assets/img/ico_ok.svg');
+            background-image: url("@assets/img/ico_ok.svg");
         }
         &--cancel:before {
             width: 7px;
             height: 7px;
-            background-image: url('@assets/img/ico_cancel.svg');
+            background-image: url("@assets/img/ico_cancel.svg");
         }
         &--edit:before {
             width: 2px;
             height: 8px;
-            background-image: url('@assets/img/ico_change.svg');
+            background-image: url("@assets/img/ico_change.svg");
         }
         &:first-child {
             border-radius: 4px 0px 0px 4px;

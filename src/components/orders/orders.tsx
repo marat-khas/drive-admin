@@ -1,88 +1,141 @@
 import { FC, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { Filter } from '@components/filter';
 import { OrdersItem } from '@components/orders/orders-item';
+import { GetCategoriesAction } from '@state/categories/actions';
+import { GetCitiesAction } from '@state/cities/actions';
 import { OrderGetAction } from '@state/order/actions';
-import { getOrders } from '@state/selectors';
+import { getCategories, getCities, getOrders } from '@state/selectors';
 
 import './orders.scss';
 
-const filterItems = [
-    {
-        id: 0,
-        options: [
-            {
-                label: 'Сегодня',
-                value: 'today',
-            },
-            {
-                label: 'За неделю',
-                value: 'week',
-            },
-            {
-                label: 'За месяц',
-                value: 'month',
-            },
-        ],
-        onChange: () => {
-            console.log('Изменилась дата');
-        },
-    },
-    {
-        id: 1,
-        options: [
-            {
-                label: 'Ульяновск',
-                value: 'uln',
-            },
-            {
-                label: 'Саранск',
-                value: 'sar',
-            },
-            {
-                label: 'Самара',
-                value: 'sam',
-            },
-        ],
-        onChange: () => {
-            console.log('Изменился город');
-        },
-    },
-];
-
 export const Orders: FC = () => {
-    const ORDERS_PER_PAGE = 5;
+    const ORDERS_PER_PAGE = 10;
 
+    const history = useHistory();
     const dispatch = useDispatch();
+
     const orders = useSelector(getOrders);
     const acessToken = localStorage.getItem('access_token');
 
     useEffect(() => {
         if (!orders && acessToken) {
             dispatch(
-                OrderGetAction({
-                    access_token: acessToken,
-                })
+                OrderGetAction(
+                    {
+                        access_token: acessToken,
+                    },
+                    history
+                )
             );
         }
-    }, [acessToken, dispatch, orders]);
+    }, [acessToken, dispatch, history, orders]);
+
+    const cities = useSelector(getCities);
+    const [selectedCity, setSelectedCity] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!cities) {
+            dispatch(GetCitiesAction(history));
+        }
+    }, [cities, dispatch, history]);
+
+    const cityFilter = cities
+        ? {
+              id: 0,
+              options: [
+                  {
+                      label: 'Любой город',
+                      value: 'default',
+                  },
+                  ...cities.map((city) => ({
+                      label: city.name,
+                      value: city.id,
+                  })),
+              ],
+              onChange: (id: string) => {
+                  setSelectedCity(id);
+              },
+          }
+        : null;
+
+    const categories = useSelector(getCategories);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(
+        null
+    );
+
+    useEffect(() => {
+        if (!categories) {
+            dispatch(GetCategoriesAction(history));
+        }
+    }, [categories, dispatch, history]);
+
+    const categoryFilter = categories
+        ? {
+              id: 1,
+              options: [
+                  {
+                      label: 'Любая категория',
+                      value: 'default',
+                  },
+                  ...categories.map((category) => ({
+                      label: category.name,
+                      value: category.id,
+                  })),
+              ],
+              onChange: (id: string) => {
+                  setSelectedCategory(id);
+              },
+          }
+        : null;
+
+    const filters = [];
+    if (cityFilter) {
+        filters.push(cityFilter);
+    }
+    if (categoryFilter) {
+        filters.push(categoryFilter);
+    }
+
+    const filterOrders = orders
+        ? orders.filter((order) => {
+              if (
+                  selectedCity &&
+                  selectedCity !== 'default' &&
+                  order.cityId.id !== selectedCity
+              ) {
+                  return false;
+              }
+              if (
+                  selectedCategory &&
+                  selectedCategory !== 'default' &&
+                  order.carId.categoryId?.id !== selectedCategory
+              ) {
+                  return false;
+              }
+              return true;
+          })
+        : null;
 
     const [pageNumber, setPageNumber] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
 
     const pagesVisited = pageNumber * ORDERS_PER_PAGE;
 
-    console.log(orders);
-    const displayOrders = orders ? (
-        orders
+    const displayOrders = filterOrders ? (
+        filterOrders
             .slice(pagesVisited, pagesVisited + ORDERS_PER_PAGE)
             .map((order) => <OrdersItem order={order} key={order.id} />)
     ) : (
         <p>Загрузка заказов ...</p>
     );
 
-    const pageCount = Math.ceil((orders?.length || 0) / ORDERS_PER_PAGE);
+    useEffect(() => {
+        setPageCount(Math.ceil((filterOrders?.length || 0) / ORDERS_PER_PAGE));
+    }, [filterOrders]);
 
     const changePage = (selectedItem: { selected: number }) => {
         setPageNumber(selectedItem.selected);
@@ -91,25 +144,28 @@ export const Orders: FC = () => {
     return (
         <div className='orders'>
             <div className='orders__filter'>
-                <Filter items={filterItems} />
+                <Filter items={filters} />
             </div>
             <div className='orders__items'>{displayOrders}</div>
-            <div className='orders__pagination orders-pagination'>
-                <ReactPaginate
-                    previousLabel='«'
-                    nextLabel='»'
-                    pageCount={pageCount}
-                    onPageChange={changePage}
-                    containerClassName='orders-pagination__container'
-                    pageClassName='orders-pagination__page'
-                    previousClassName='orders-pagination__page orders-pagination__page--prev'
-                    nextClassName='orders-pagination__page orders-pagination__page--next'
-                    breakClassName='orders-pagination__page orders-pagination__page--break'
-                    activeClassName='isActive'
-                    pageRangeDisplayed={2}
-                    marginPagesDisplayed={2}
-                />
-            </div>
+            {pageCount > 1 ? (
+                <div className='orders__pagination orders-pagination'>
+                    <ReactPaginate
+                        previousLabel='«'
+                        nextLabel='»'
+                        pageCount={pageCount}
+                        onPageChange={changePage}
+                        containerClassName='orders-pagination__container'
+                        pageClassName='orders-pagination__page'
+                        previousClassName='orders-pagination__page orders-pagination__page--prev'
+                        nextClassName='orders-pagination__page orders-pagination__page--next'
+                        breakClassName='orders-pagination__page orders-pagination__page--break'
+                        disabledClassName='isDisabled'
+                        activeClassName='isActive'
+                        pageRangeDisplayed={2}
+                        marginPagesDisplayed={2}
+                    />
+                </div>
+            ) : null}
         </div>
     );
 };

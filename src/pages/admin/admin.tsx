@@ -88,7 +88,7 @@ export const Admin: FC = () => (
                                     </div>
                                 </div>
                             </Route>
-                            <Route>
+                            <Route path={ROUTES.ERROR}>
                                 <div className='admin__error'>
                                     <Error
                                         code='500'

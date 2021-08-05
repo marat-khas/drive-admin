@@ -16,7 +16,7 @@ export const OrdersItem: FC<OrdersItemProps> = ({ order }) => {
     return (
         <div className='order-item'>
             <div className='order-item__wrapper'>
-                <div className='order-item__part'>
+                <div className='order-item__part order-item__part--car'>
                     <div className='order-item__car'>
                         <div className='order-item__img'>
                             <img src={img} alt={order.carId.name} />
@@ -24,12 +24,22 @@ export const OrdersItem: FC<OrdersItemProps> = ({ order }) => {
                         <div className='order-item__desc'>
                             <ul>
                                 <li>
+                                    Категория:{' '}
+                                    {order.carId.categoryId
+                                        ? order.carId.categoryId.name
+                                        : 'Не указана'}
+                                </li>
+                                <li>
                                     <span>{order.carId.name}</span>
                                 </li>
-                                <li>Цвет: {order.color}</li>
                                 <li>
-                                    <span>{order.cityId.name}</span>,{' '}
-                                    {order.pointId.address}
+                                    Цвет:{' '}
+                                    {order.color ? order.color : 'Не указан'}
+                                </li>
+                                <li>
+                                    <span>{order.cityId.name}</span>
+                                    {order.pointId &&
+                                        `, ${order.pointId.address}`}
                                 </li>
                                 <li>{`${new Date(
                                     order.dateFrom
@@ -40,7 +50,7 @@ export const OrdersItem: FC<OrdersItemProps> = ({ order }) => {
                         </div>
                     </div>
                 </div>
-                <div className='order-item__part'>
+                <div className='order-item__part order-item__part--props'>
                     <div className='order-item__props'>
                         <div className='order-item__option'>
                             <Checkbox
@@ -71,12 +81,12 @@ export const OrdersItem: FC<OrdersItemProps> = ({ order }) => {
                         </div>
                     </div>
                 </div>
-                <div className='order-item__part'>
+                <div className='order-item__part order-item__part--price'>
                     <div className='order-item__price'>
                         {numSpace(order.price)} ₽
                     </div>
                 </div>
-                <div className='order-item__part'>
+                <div className='order-item__part order-item__part--action'>
                     <div className='order-item__action'>
                         <button
                             className='order-item__btn order-item__btn--ok'

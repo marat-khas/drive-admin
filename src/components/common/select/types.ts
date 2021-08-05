@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from 'react';
+
 export interface Option {
     label: string;
     value: string;
@@ -5,5 +7,5 @@ export interface Option {
 
 export interface SelectProps {
     options: Option[];
-    onChange: () => void;
+    onChange: ChangeEventHandler<HTMLSelectElement>;
 }

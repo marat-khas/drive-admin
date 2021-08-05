@@ -1,5 +1,7 @@
+import { History } from 'history';
 import { Dispatch } from 'redux';
 
+import { ROUTES } from '@constants/routes';
 import { getOrders } from '@services/order';
 import { OrderRequest } from '@services/order/types';
 import {
@@ -12,19 +14,18 @@ import { Order, OrderActionTypes, OrderRecord } from './types';
 
 export const OrderRecordAction = (data: Order[] | null): OrderRecord => ({
     type: OrderActionTypes.ORDER_RECORD,
-    payload: data
-        ? data.filter((order) => order.carId && order.cityId && order.pointId)
-        : null,
+    payload: data ? data.filter((order) => order.carId && order.cityId) : null,
 });
 
 export const OrderGetAction =
-    (data: OrderRequest) => (dispatch: Dispatch<any>) => {
+    (data: OrderRequest, history: History) => (dispatch: Dispatch<any>) => {
         dispatch(LoadingStartAction('Получение заказов ...'));
         getOrders(data)
             .then((orders) => {
                 dispatch(OrderRecordAction(orders));
             })
             .catch((error) => {
+                history.push(ROUTES.ERROR);
                 dispatch(
                     ModalShowAction({
                         head: 'Ошибка!',

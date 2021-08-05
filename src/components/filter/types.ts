@@ -3,7 +3,7 @@ import { Option } from '@components/common/select/types';
 export interface FilterSelect {
     id: number;
     options: Option[];
-    onChange: () => void;
+    onChange: (data: string) => void;
 }
 
 export interface FilterProps {
