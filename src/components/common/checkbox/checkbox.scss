@@ -9,7 +9,6 @@
         display: inline-block;
         vertical-align: top;
         padding-left: 20px;
-        font-size: 14px;
         line-height: 1.2;
         font-weight: 300;
         color: #998;
@@ -24,8 +23,7 @@
             width: 12px;
             height: 12px;
             left: 0;
-            top: 50%;
-            margin-top: -6px;
+            top: 2px;
             border: 1px solid #998;
             transition: border-color $time-trs;
         }
@@ -34,7 +32,7 @@
             height: 10px;
             left: 2px;
             top: 2px;
-            background: url('@assets/img/ico_check.svg') no-repeat center center / contain;
+            background: url("@assets/img/ico_check.svg") no-repeat center center / contain;
             transform: scale(0);
         }
     }
@@ -53,6 +51,22 @@
         }
         &:after {
             transform: scale(1);
+        }
+    }
+}
+
+@media (min-width: 576px) {
+    .checkbox {
+        label {
+            font-size: 14px;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .checkbox {
+        label {
+            font-size: 13px;
         }
     }
 }

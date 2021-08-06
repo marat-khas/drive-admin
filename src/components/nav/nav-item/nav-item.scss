@@ -1,31 +1,20 @@
-@import '@vars';
+@import "@vars";
 
 .nav-item {
-   border-bottom: 1px solid rgba($color-text3, 0.12);
+    border-bottom: 1px solid rgba($color-text3, 0.12);
     &__link {
         position: relative;
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        background-color: #FFF;
-        padding: 20px 28px;
+        background-color: #fff;
         text-decoration: none;
         cursor: pointer;
         transition: background-color $time-trs;
-        &:before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 50%;
-            width: 4px;
-            height: 0;
-            transform: translateY(-50%);
-            transition: height $time-trs, background-color $time-trs;
-        }
     }
-    
+
     &.isActive &__link {
-        background-color: #FBFBFB;
+        background-color: #fbfbfb;
         &:before {
             height: 100%;
             background-color: $color-blue;
@@ -44,7 +33,6 @@
             path {
                 fill: $color-gray;
                 transition: fill $time-trs;
-
             }
         }
     }
@@ -62,5 +50,49 @@
     &__link:hover &__label,
     &.isActive &__link &__label {
         color: $color-blue;
+    }
+}
+
+@media (min-width: 1200px) {
+    .nav-item {
+        &__link {
+            padding: 20px 28px;
+        }
+    }
+}
+
+@media (max-width: 1199px) {
+    .nav-item {
+        &__link {
+            padding: 16px 20px;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .nav-item {
+        &__link {
+            &:before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 50%;
+                width: 4px;
+                height: 0;
+                transform: translateY(-50%);
+                transition: height $time-trs, background-color $time-trs;
+            }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .nav-item {
+        &__link {
+            justify-content: center;
+        }
+        &__label {
+            width: 160px;
+        }
     }
 }

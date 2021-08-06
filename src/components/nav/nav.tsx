@@ -6,7 +6,9 @@ import MenuIco2 from '@assets/img/ico_list.svg';
 import { NavItem } from '@components/nav/nav-item/nav-item';
 import { ROUTES } from '@constants/routes';
 
-export const Nav: FC = () => {
+import { NavProps } from './types';
+
+export const Nav: FC<NavProps> = ({ itemClickHandle }) => {
     const items = [
         {
             id: 0,
@@ -31,7 +33,12 @@ export const Nav: FC = () => {
         <nav className='nav'>
             <ul>
                 {items.map(({ id, ico, label, to }) => (
-                    <NavItem key={id} to={to} ico={ico}>
+                    <NavItem
+                        key={id}
+                        to={to}
+                        ico={ico}
+                        clickHandle={itemClickHandle}
+                    >
                         {label}
                     </NavItem>
                 ))}

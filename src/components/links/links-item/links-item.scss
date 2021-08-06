@@ -1,7 +1,6 @@
 @import '@vars';
 
 .links-item {
-    font-size: 14px;
     line-height: 1.5;
     font-weight: 400;
     a {
@@ -11,5 +10,17 @@
         &:hover {
             color: $color-green;
         }
+    }
+}
+
+@media (min-width: 768px) {
+    .links-item {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 767px) {
+    .links-item {
+        font-size: 13px;
     }
 }
