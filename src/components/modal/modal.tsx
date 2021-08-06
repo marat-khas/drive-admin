@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { Button } from '@components/common/button';
 import { ModalHideAction } from '@state/global/actions';
-import { getModal } from '@state/selectors';
+import { getLoading, getModal } from '@state/selectors';
 
 import './modal.scss';
 
@@ -12,8 +12,10 @@ export const Modal: FC = () => {
     const dispatch = useDispatch();
 
     const modal = useSelector(getModal);
+    const loading = useSelector(getLoading);
+
     const classes = classNames('modal', {
-        'modal--open': modal,
+        'modal--open': modal && !loading.length,
     });
 
     const clickHandle = () => {
