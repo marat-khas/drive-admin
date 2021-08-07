@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
 
-import { getAuthStatus } from '@state/selectors';
+import { getUser } from '@state/selectors';
 
-export const useAuth = (): boolean => useSelector(getAuthStatus);
+export const useAuth = (): boolean => Boolean(useSelector(getUser));

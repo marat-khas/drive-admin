@@ -15,21 +15,40 @@ import {
 } from '@state/global/actions';
 import { OrderRecordAction } from '@state/order/actions';
 
-import { UserActionTypes, UserAuth } from './types';
+import { User, UserActionTypes, UserAuth } from './types';
 
-export const UserAuthAction = (data: boolean): UserAuth => ({
+export const UserAuthAction = (
+    data: Omit<User, 'password'> | null
+): UserAuth => ({
     type: UserActionTypes.USER_AUTH,
     payload: data,
 });
+
+export const UserCheckAction =
+    (data: CheckRequest) => (dispatch: Dispatch<any>) => {
+        dispatch(LoadingStartAction('Проверка пользователя ...'));
+        check(data)
+            .then((user) => {
+                dispatch(UserAuthAction(user));
+            })
+            .catch((error) => {
+                localStorage.removeItem('access_token');
+                dispatch(UserAuthAction(null));
+                console.error(error);
+            })
+            .finally(() => {
+                dispatch(LoadingEndAction('Проверка пользователя ...'));
+            });
+    };
 
 export const UserOauthAction =
     (data: OauthRequest) => (dispatch: Dispatch<any>) => {
         dispatch(LoadingStartAction('Авторизация ...'));
         oauth(data)
-            .then((user) => {
-                localStorage.setItem('access_token', user.access_token);
-                localStorage.setItem('refresh_token', user.refresh_token);
-                dispatch(UserAuthAction(true));
+            .then((access) => {
+                localStorage.setItem('access_token', access.access_token);
+                localStorage.setItem('refresh_token', access.refresh_token);
+                dispatch(UserCheckAction(access));
                 dispatch(
                     ModalShowAction({
                         head: 'Добро пожаловать!',
@@ -70,36 +89,16 @@ export const UserRegisterAction =
             });
     };
 
-export const UserCheckAction =
-    (data: CheckRequest) => (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Проверка пользователя ...'));
-        check(data)
-            .then(() => {
-                dispatch(UserAuthAction(true));
-            })
-            .catch((error) => {
-                dispatch(UserAuthAction(false));
-                dispatch(
-                    ModalShowAction({
-                        head: 'Ошибка!',
-                        body: error.response.data,
-                    })
-                );
-            })
-            .finally(() => {
-                dispatch(LoadingEndAction('Проверка пользователя ...'));
-            });
-    };
-
 export const UserRefreshAction =
     (data: RefreshRequest) => (dispatch: Dispatch<any>) => {
         dispatch(LoadingStartAction('Обновление данных ...'));
         refresh(data)
-            .then((user) => {
-                localStorage.setItem('access_token', user.access_token);
-                dispatch(UserAuthAction(true));
+            .then((access) => {
+                localStorage.setItem('access_token', access.access_token);
+                dispatch(UserCheckAction(access));
             })
             .catch((error) => {
+                localStorage.removeItem('refresh_token');
                 dispatch(
                     ModalShowAction({
                         head: 'Ошибка!',
@@ -119,7 +118,7 @@ export const UserLogoutAction =
         localStorage.removeItem('refresh_token');
         logout(data)
             .then(() => {
-                dispatch(UserAuthAction(false));
+                dispatch(UserAuthAction(null));
                 dispatch(OrderRecordAction(null));
             })
             .catch((error) => {

@@ -1,5 +1,11 @@
+export interface User {
+    username: string;
+    id: string;
+    password: string;
+}
+
 export interface UserState {
-    auth: boolean;
+    data: Omit<User, 'password'> | null;
 }
 
 export enum UserActionTypes {
@@ -8,7 +14,7 @@ export enum UserActionTypes {
 
 export interface UserAuth {
     type: UserActionTypes.USER_AUTH;
-    payload: boolean;
+    payload: Omit<User, 'password'> | null;
 }
 
 export type UserAction = UserAuth;

@@ -19,12 +19,13 @@
     }
     &__login {
         position: relative;
-        width: 105px;
+        width: 120px;
         padding-right: 15px;
         font-size: 15px;
         line-height: 1.2;
         font-weight: 400;
         color: $color-text3;
+        white-space: nowrap;
         span {
             display: block;
             overflow: hidden;

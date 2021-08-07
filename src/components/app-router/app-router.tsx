@@ -9,22 +9,31 @@ import { useAuth } from '@hooks/use-auth';
 import { Admin } from '@pages/admin';
 import { Error404 } from '@pages/error404';
 import { Main } from '@pages/main';
-import { UserCheckAction } from '@state/user/actions';
+import { UserCheckAction, UserRefreshAction } from '@state/user/actions';
 
 export const AppRouter: FC = () => {
     const dispatch = useDispatch();
     const auth = useAuth();
     const accessToken = localStorage.getItem('access_token');
+    const refreshToken = localStorage.getItem('refresh_token');
 
     useEffect(() => {
-        if (accessToken && !auth) {
-            dispatch(
-                UserCheckAction({
-                    access_token: accessToken,
-                })
-            );
+        if (!auth) {
+            if (accessToken) {
+                dispatch(
+                    UserCheckAction({
+                        access_token: accessToken,
+                    })
+                );
+            } else if (refreshToken) {
+                dispatch(
+                    UserRefreshAction({
+                        refresh_token: refreshToken,
+                    })
+                );
+            }
         }
-    }, [auth, dispatch, accessToken]);
+    }, [auth, dispatch, accessToken, refreshToken]);
 
     return (
         <Switch>

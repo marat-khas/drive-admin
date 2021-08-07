@@ -1,8 +1,4 @@
-export interface UserData {
-    username: string;
-    password: string;
-    id: string;
-}
+import { User } from '@state/user/types';
 
 export interface AccessData {
     token_type: string;
@@ -12,11 +8,11 @@ export interface AccessData {
     user_id: string;
 }
 
-export type RegisterRequest = Pick<UserData, 'username' | 'password'>;
+export type RegisterRequest = Pick<User, 'username' | 'password'>;
 
-export type RegisterResponse = UserData;
+export type RegisterResponse = User;
 
-export type OauthRequest = Pick<UserData, 'username' | 'password'>;
+export type OauthRequest = Pick<User, 'username' | 'password'>;
 
 export type OauthResponse = AccessData;
 
@@ -24,10 +20,7 @@ export interface CheckRequest {
     access_token: string;
 }
 
-export interface CheckResponse {
-    username: string;
-    id: string;
-}
+export type CheckResponse = Omit<User, 'password'>;
 
 export type RefreshRequest = {
     refresh_token: string;
