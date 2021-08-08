@@ -15,16 +15,16 @@ export const SigninForm: FC = () => {
     const dispatch = useDispatch();
 
     const initialValues: SigninSchemaProps = {
-        email: '',
+        username: '',
         password: '',
     };
 
     const fields: FieldProps[] = [
         {
-            name: 'email',
-            id: 'signin-email',
-            type: 'email',
-            label: 'Почта',
+            name: 'username',
+            id: 'signin-username',
+            type: 'text',
+            label: 'Логин',
         },
         {
             name: 'password',
@@ -37,20 +37,20 @@ export const SigninForm: FC = () => {
     const [mode, setMode] = useState('oauth');
 
     const submitHandle = (
-        { email, password }: SigninSchemaProps,
+        { username, password }: SigninSchemaProps,
         { resetForm }: FormikHelpers<SigninSchemaProps>
     ) => {
         if (mode === 'oauth') {
             dispatch(
                 UserOauthAction({
-                    username: email,
+                    username,
                     password,
                 })
             );
         } else {
             dispatch(
                 UserRegisterAction({
-                    username: email,
+                    username,
                     password,
                 })
             );
