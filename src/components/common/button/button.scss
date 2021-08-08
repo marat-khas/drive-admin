@@ -36,4 +36,13 @@
             color: $color-green;
         }
     }
+    &--gray {
+        background-color: $color-gray3;
+        border-color: $color-gray3;
+        color: $color-text1;
+        &:hover {
+            background-color: #fff;
+            color: $color-blue;
+        }
+    }
 }

@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import classNames from 'classnames';
 
 import Logo from '@assets/img/logo.svg';
+import { CarCard } from '@components/car-card';
+import { CarSettings } from '@components/car-settings';
 import { Error } from '@components/error';
 import { Links } from '@components/links/links';
 import { Nav } from '@components/nav';
@@ -70,10 +72,12 @@ export const Admin: FC = () => {
                                     <div className='admin__title'>
                                         <h1>Заказы</h1>
                                     </div>
-                                    <div className='admin__row'>
-                                        <div className='admin__col'>
-                                            <div className='admin__wrap'>
-                                                <Orders />
+                                    <div className='admin__container'>
+                                        <div className='admin__row'>
+                                            <div className='admin__col'>
+                                                <div className='admin__wrap'>
+                                                    <Orders />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -82,10 +86,12 @@ export const Admin: FC = () => {
                                     <div className='admin__title'>
                                         <h1>Entities</h1>
                                     </div>
-                                    <div className='admin__row'>
-                                        <div className='admin__col'>
-                                            <div className='admin__wrap'>
-                                                [Список авто]
+                                    <div className='admin__container'>
+                                        <div className='admin__row'>
+                                            <div className='admin__col'>
+                                                <div className='admin__wrap'>
+                                                    [Список авто]
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -94,15 +100,22 @@ export const Admin: FC = () => {
                                     <div className='admin__title'>
                                         <h1>Карточка автомобиля</h1>
                                     </div>
-                                    <div className='admin__row'>
-                                        <div className='admin__col admin__col--card'>
-                                            <div className='admin__wrap'>
-                                                [Автомобиль]
+                                    <div className='admin__container'>
+                                        <div className='admin__row'>
+                                            <div className='admin__col admin__col--card'>
+                                                <div className='admin__wrap'>
+                                                    <CarCard />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className='admin__col'>
-                                            <div className='admin__wrap'>
-                                                [Настройки]
+                                            <div className='admin__col admin__col--settings'>
+                                                <div className='admin__wrap'>
+                                                    <div className='admin__subtitle'>
+                                                        <h2>
+                                                            Настройки автомобиля
+                                                        </h2>
+                                                    </div>
+                                                    <CarSettings />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +139,7 @@ export const Admin: FC = () => {
                             </div>
                             <div className='admin-foot__item'>
                                 <div className='admin-copyright'>
-                                    Copyright © 2020 Simbirsoft
+                                    Copyright © 2021 Simbirsoft
                                 </div>
                             </div>
                         </div>

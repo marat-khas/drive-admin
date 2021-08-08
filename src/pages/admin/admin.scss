@@ -1,7 +1,7 @@
 @import "@vars";
 
 .admin {
-    background-color: $color-gray-light;
+    background-color: $color-gray3;
     &__wrapper {
         width: 100%;
     }
@@ -29,6 +29,10 @@
     }
     &__in {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
     }
     &__foot {
         width: 100%;
@@ -43,31 +47,35 @@
         font-weight: 400;
         color: $color-text1;
     }
-    &__row {
-        display: flex;
-        align-items: flex-start;
-        justify-content: flex-start;
-        margin: 0 -14px;
-    }
-    &__col {
+    &__container {
+        width: 100%;
         flex: 1;
-        padding: 0 14px;
-        &--card {
-            flex: inherit;
-            width: 335px;
-            flex-shrink: 0;
-        }
+        display: flex;
+        align-items: stretch;
+        justify-content: flex-start;
+        flex-direction: column;
     }
     &__wrap {
         background: #fff;
-        box-shadow: 0 2px 4px rgba($color-text3, 0.12);
-        border-radius: 9px;
+    }
+    &__col--settings &__wrap {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
     &__error {
         min-height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    &__subtitle {
+        font-size: 18px;
+        line-height: 1.2;
+        font-weight: 500;
+        color: $color-text1;
     }
 }
 
@@ -121,7 +129,7 @@
             transition: background-color 0.4s, width 0s 0.4s;
         }
     }
-    &__nav.isOpen+&__close {
+    &__nav.isOpen + &__close {
         &:before {
             top: 8px;
             transform: rotate(45deg);
@@ -175,6 +183,11 @@
         }
         &__foot {
             min-height: 68px;
+        }
+        &__col {
+            &--card {
+                width: 335px;
+            }
         }
     }
     .admin-sidebar {
@@ -288,6 +301,40 @@
     }
 }
 
+@media (min-width: 768px) and (max-width: 1199px) {
+    .admin {
+        &__col {
+            &--card {
+                width: 300px;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .admin {
+        &__row {
+            min-height: 100%;
+            display: flex;
+            align-items: stretch;
+            justify-content: flex-start;
+            margin: 0 -14px;
+        }
+        &__col {
+            flex: 1;
+            padding: 0 14px;
+            &--card {
+                flex: inherit;
+                flex-shrink: 0;
+            }
+        }
+        &__wrap {
+            box-shadow: 0 2px 4px rgba($color-text3, 0.12);
+            border-radius: 9px;
+        }
+    }
+}
+
 @media (min-width: 576px) and (max-width: 991px) {
     .admin-sidebar {
         &__head {
@@ -316,19 +363,23 @@
         &__title {
             font-size: 29px;
             margin-bottom: 30px;
-        }    &__logo {
-        margin-right: 8px;
-        svg {
-            width: 22px;
-            height: 22px;
         }
-    }
-    &__name {
-        font-size: 16px;
-        line-height: 1.2;
-        font-weight: 400;
-        color: $color-text1;
-    }
+        &__logo {
+            margin-right: 8px;
+            svg {
+                width: 22px;
+                height: 22px;
+            }
+        }
+        &__name {
+            font-size: 16px;
+            line-height: 1.2;
+            font-weight: 400;
+            color: $color-text1;
+        }
+        &__subtitle {
+            padding: 20px;
+        }
     }
     .admin-sidebar {
         &__logo {
@@ -337,7 +388,7 @@
                 width: 22px;
                 height: 22px;
             }
-        }  
+        }
     }
     .admin-foot {
         display: flex;
@@ -364,6 +415,9 @@
             font-size: 22px;
             margin-bottom: 20px;
         }
+        &__subtitle {
+            padding: 15px;
+        }
     }
     .admin-sidebar {
         &__logo {
@@ -374,10 +428,10 @@
         }
         &__name {
             display: none;
-        }  
+        }
         &__head {
             display: none;
-        }      
+        }
     }
     .admin-head {
         &__item {
