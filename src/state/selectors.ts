@@ -11,3 +11,12 @@ export const getCategories = (state: RootState) => state.categories.categories;
 export const getUser = (state: RootState) => state.user.data;
 
 export const getOrders = (state: RootState) => state.order.data;
+
+export const getFilter = (state: RootState) =>
+    Object.entries(state.filter).reduce((acc, [key, val]) => {
+        if (val !== null) {
+            // acc.push(`${key}=${val}`);
+            return [...acc, `${key}=${val}`];
+        }
+        return acc;
+    }, []);

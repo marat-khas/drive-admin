@@ -14,7 +14,7 @@ import { Order, OrderActionTypes, OrderRecord } from './types';
 
 export const OrderRecordAction = (data: Order[] | null): OrderRecord => ({
     type: OrderActionTypes.ORDER_RECORD,
-    payload: data ? data.filter((order) => order.carId && order.cityId) : null,
+    payload: data || null, // .filter((order) => order.carId && order.cityId)
 });
 
 export const OrderGetAction =

@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 
 import { categoriesReducer } from '@state/categories/reducer';
 import { citiesReducer } from '@state/cities/reducer';
+import { FilterReducer } from '@state/filter/reducer';
 import { GlobalReducer } from '@state/global/reducer';
 import { OrderReducer } from '@state/order/reducer';
 import { RootState } from '@state/types';
@@ -15,6 +16,7 @@ const rootReducer = combineReducers<RootState>({
     cities: citiesReducer,
     user: UserReducer,
     order: OrderReducer,
+    filter: FilterReducer,
 });
 
 export const store = createStore(
