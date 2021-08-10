@@ -7,5 +7,6 @@ export interface Option {
 
 export interface SelectProps {
     options: Option[];
+    selectedValue?: string | null;
     onChange: ChangeEventHandler<HTMLSelectElement>;
 }

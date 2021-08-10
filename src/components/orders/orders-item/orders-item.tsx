@@ -10,8 +10,8 @@ import './orders-item.scss';
 import { OrdersItemProps } from './types';
 
 export const OrdersItem: FC<OrdersItemProps> = ({ order }) => {
-    const img = order.carId.thumbnail.path
-        ? imgSrc(order.carId.thumbnail.path)
+    const img = order.carId?.thumbnail.path
+        ? imgSrc(order.carId?.thumbnail.path)
         : CarPlaceholder;
     return (
         <div className='order-item'>
@@ -19,25 +19,33 @@ export const OrdersItem: FC<OrdersItemProps> = ({ order }) => {
                 <div className='order-item__part order-item__part--car'>
                     <div className='order-item__car'>
                         <div className='order-item__img'>
-                            <img src={img} alt={order.carId.name} />
+                            <img
+                                src={img}
+                                alt={order.carId?.name || 'Автомобиль'}
+                            />
                         </div>
                         <div className='order-item__desc'>
                             <ul>
                                 <li>
                                     Категория:{' '}
-                                    {order.carId.categoryId
-                                        ? order.carId.categoryId.name
-                                        : 'Не указана'}
+                                    {order.carId?.categoryId?.name ||
+                                        'Не указана'}
                                 </li>
                                 <li>
-                                    <span>{order.carId.name}</span>
+                                    <span>
+                                        {order.carId?.name ||
+                                            'Модель не указана'}
+                                    </span>
                                 </li>
                                 <li>
                                     Цвет:{' '}
                                     {order.color ? order.color : 'Не указан'}
                                 </li>
                                 <li>
-                                    <span>{order.cityId.name}</span>
+                                    <span>
+                                        {order.cityId?.name ||
+                                            'Город не указан'}
+                                    </span>
                                     {order.pointId &&
                                         `, ${order.pointId.address}`}
                                 </li>
@@ -83,7 +91,9 @@ export const OrdersItem: FC<OrdersItemProps> = ({ order }) => {
                 </div>
                 <div className='order-item__part order-item__part--price'>
                     <div className='order-item__price'>
-                        {numSpace(order.price)} ₽
+                        {order.price
+                            ? `${numSpace(order.price)}  ₽`
+                            : 'Не указана'}
                     </div>
                 </div>
                 <div className='order-item__part order-item__part--action'>

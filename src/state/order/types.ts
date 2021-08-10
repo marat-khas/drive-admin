@@ -53,10 +53,12 @@ export interface Order {
 
 export interface OrderState {
     data: Order[] | null;
+    count: number;
 }
 
 export enum OrderActionTypes {
     ORDER_RECORD = 'ORDER_RECORD',
+    ORDER_COUNT = 'ORDER_COUNT',
 }
 
 export interface OrderRecord {
@@ -64,4 +66,9 @@ export interface OrderRecord {
     payload: Order[] | null;
 }
 
-export type OrderAction = OrderRecord;
+export interface OrderCount {
+    type: OrderActionTypes.ORDER_COUNT;
+    payload: number;
+}
+
+export type OrderAction = OrderRecord | OrderCount;

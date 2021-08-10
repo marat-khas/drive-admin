@@ -10,11 +10,16 @@ import {
     ModalShowAction,
 } from '@state/global/actions';
 
-import { Order, OrderActionTypes, OrderRecord } from './types';
+import { Order, OrderActionTypes, OrderCount, OrderRecord } from './types';
 
 export const OrderRecordAction = (data: Order[] | null): OrderRecord => ({
     type: OrderActionTypes.ORDER_RECORD,
-    payload: data ? data.filter((order) => order.carId && order.cityId) : null,
+    payload: data || null,
+});
+
+export const OrderCountAction = (data: number): OrderCount => ({
+    type: OrderActionTypes.ORDER_COUNT,
+    payload: data,
 });
 
 export const OrderGetAction =
@@ -22,7 +27,8 @@ export const OrderGetAction =
         dispatch(LoadingStartAction('Получение заказов ...'));
         getOrders(data)
             .then((orders) => {
-                dispatch(OrderRecordAction(orders));
+                dispatch(OrderRecordAction(orders.data));
+                dispatch(OrderCountAction(orders.count));
             })
             .catch((error) => {
                 history.push(ROUTES.ERROR);

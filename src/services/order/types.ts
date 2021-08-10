@@ -2,8 +2,10 @@ import { Order } from '@state/order/types';
 
 export interface OrderRequest {
     access_token: string;
-    limit?: number;
-    offset?: number;
+    filter?: string | null;
 }
 
-export type OrderResponse = Order[];
+export type OrderResponse = {
+    count: number;
+    data: Order[];
+};

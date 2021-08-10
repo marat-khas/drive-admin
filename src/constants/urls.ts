@@ -7,4 +7,4 @@ export const REFRESH_URL = '/auth/refresh';
 export const LOGOUT_URL = '/auth/logout';
 export const ORDER_URL = '/db/order';
 export const CITY_URL = `/db/city`;
-export const CATEGORY_URL = `/db/category`;
+export const CAR_URL = `/db/car`;

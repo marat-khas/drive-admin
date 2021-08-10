@@ -14,6 +14,12 @@ export const OrderReducer = (
                     : null,
             };
         }
+        case OrderActionTypes.ORDER_COUNT: {
+            return {
+                ...state,
+                count: action.payload,
+            };
+        }
         default:
             return state;
     }

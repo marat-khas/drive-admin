@@ -1,0 +1,5 @@
+export const ORDER_STATUS_ID = {
+    NEW: '5e26a191099b810b946c5d89',
+    CONFIRM: '5e26a1f0099b810b946c5d8b',
+    CANCEL: '5e26a1f5099b810b946c5d8c',
+};
