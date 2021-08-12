@@ -6,6 +6,7 @@ export interface FilterState {
     carId: string | null;
     cityId: string | null;
     categoryId: string | null;
+    orderStatusId: string | null;
 }
 
 export enum FilterActionTypes {

@@ -79,7 +79,9 @@ export const Orders: FC = () => {
                     <ReactPaginate
                         previousLabel='«'
                         nextLabel='»'
-                        pageCount={Math.ceil(pageCount / limit)}
+                        pageCount={
+                            pageCount ? Math.ceil(pageCount / limit) - 1 : 0
+                        }
                         onPageChange={changePage}
                         containerClassName='orders-pagination__container'
                         pageClassName='orders-pagination__page'

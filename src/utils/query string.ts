@@ -6,4 +6,6 @@ export const queryString = (obj: Record<string, any>) =>
             }
             return acc;
         }, [])
-        .join('&');
+        .join('&')
+        .replace('dateFrom', 'dateFrom[$gt]')
+        .replace('dateTo', 'dateTo[$lt]');

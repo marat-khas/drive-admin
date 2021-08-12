@@ -8,4 +8,5 @@ export const FilterStateDefault: FilterState = {
     carId: null,
     cityId: null,
     categoryId: null,
+    orderStatusId: null,
 };

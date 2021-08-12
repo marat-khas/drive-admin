@@ -31,6 +31,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
+    "date-fns": "^2.23.0",
     "dotenv-webpack": "^7.0.3",
     "formik": "^2.2.9",
     "react": "^17.0.2",
@@ -47,6 +48,7 @@
     "@svgr/webpack": "^5.5.0",
     "@types/history": "^4.7.9",
     "@types/react": "^17.0.14",
+    "@types/react-datepicker": "^4.1.4",
     "@types/react-dom": "^17.0.9",
     "@types/react-paginate": "^7.1.1",
     "@types/react-redux": "^7.1.18",
