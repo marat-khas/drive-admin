@@ -36,7 +36,7 @@
             transform: scale(0);
         }
     }
-    input:not(:checked) + label {
+    input:not(:checked):not(:disabled) + label {
         color: $color-black;
         &:hover {
             &:before {
@@ -45,13 +45,18 @@
         }
     }
     input:checked + label {
+        &:after {
+            transform: scale(1);
+        }
+    }
+    input:checked:not(:disabled) + label {
         color: $color-black;
         &:before {
             border-color: $color-green;
         }
-        &:after {
-            transform: scale(1);
-        }
+    }
+    input:disabled + label {
+        cursor: default;
     }
 }
 

@@ -59,6 +59,7 @@ export interface OrderState {
 export enum OrderActionTypes {
     ORDER_RECORD = 'ORDER_RECORD',
     ORDER_COUNT = 'ORDER_COUNT',
+    ORDER_CHANGE = 'ORDER_CHANGE',
 }
 
 export interface OrderRecord {
@@ -71,4 +72,12 @@ export interface OrderCount {
     payload: number;
 }
 
-export type OrderAction = OrderRecord | OrderCount;
+export interface OrderChange {
+    type: OrderActionTypes.ORDER_CHANGE;
+    payload: {
+        id: string;
+        data: Partial<Order>;
+    };
+}
+
+export type OrderAction = OrderRecord | OrderCount | OrderChange;

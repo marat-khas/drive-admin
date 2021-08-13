@@ -20,6 +20,19 @@ export const OrderReducer = (
                 count: action.payload,
             };
         }
+        case OrderActionTypes.ORDER_CHANGE: {
+            return {
+                ...state,
+                data: state.data
+                    ? state.data?.map((item) => {
+                          if (item.id === action.payload.id) {
+                              return { ...item, ...action.payload.data };
+                          }
+                          return item;
+                      })
+                    : null,
+            };
+        }
         default:
             return state;
     }
