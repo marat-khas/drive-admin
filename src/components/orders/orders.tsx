@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import { Filter } from '@components/filter';
 import { OrdersItem } from '@components/orders/orders-item';
@@ -17,7 +18,7 @@ export const Orders: FC = () => {
     const dispatch = useDispatch();
 
     const orders = useSelector(getOrders);
-    const acessToken = localStorage.getItem('access_token');
+    const acessToken = Cookies.get('access_token');
     const filter = useSelector(getFilter);
 
     const pageCount = useSelector(getOrdersCount);

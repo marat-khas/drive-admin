@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import addMonths from 'date-fns/addMonths';
 import addWeeks from 'date-fns/addWeeks';
+import Cookies from 'js-cookie';
 
 import { Button } from '@components/common/button';
 import { Select } from '@components/common/select';
@@ -151,7 +152,7 @@ export const Filter: FC = () => {
     }
     filters.push(statusFilter);
 
-    const acessToken = localStorage.getItem('access_token');
+    const acessToken = Cookies.get('access_token');
 
     const applyHandle = () => {
         if (acessToken) {

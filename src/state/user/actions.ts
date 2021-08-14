@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { Dispatch } from 'redux';
 
 import { check, logout, oauth, refresh, register } from '@services/auth';
@@ -32,7 +33,7 @@ export const UserCheckAction =
                 dispatch(UserAuthAction(user));
             })
             .catch((error) => {
-                localStorage.removeItem('access_token');
+                Cookies.remove('access_token');
                 dispatch(UserAuthAction(null));
                 console.error(error);
             })
@@ -46,8 +47,8 @@ export const UserOauthAction =
         dispatch(LoadingStartAction('Авторизация ...'));
         oauth(data)
             .then((access) => {
-                localStorage.setItem('access_token', access.access_token);
-                localStorage.setItem('refresh_token', access.refresh_token);
+                Cookies.set('access_token', access.access_token);
+                Cookies.set('refresh_token', access.refresh_token);
                 dispatch(UserCheckAction(access));
                 dispatch(
                     ModalShowAction({
@@ -94,11 +95,11 @@ export const UserRefreshAction =
         dispatch(LoadingStartAction('Обновление данных ...'));
         refresh(data)
             .then((access) => {
-                localStorage.setItem('access_token', access.access_token);
+                Cookies.set('access_token', access.access_token);
                 dispatch(UserCheckAction(access));
             })
             .catch((error) => {
-                localStorage.removeItem('refresh_token');
+                Cookies.remove('refresh_token');
                 dispatch(
                     ModalShowAction({
                         head: 'Ошибка!',
@@ -114,8 +115,8 @@ export const UserRefreshAction =
 export const UserLogoutAction =
     (data: LogoutRequest) => (dispatch: Dispatch<any>) => {
         dispatch(LoadingStartAction('Выход из учетной записи ...'));
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+        Cookies.remove('access_token');
+        Cookies.remove('refresh_token');
         logout(data)
             .then(() => {
                 dispatch(UserAuthAction(null));

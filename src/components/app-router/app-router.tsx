@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import { ROUTES } from '@constants/routes';
 import { AuthRoute } from '@hocs/auth-route';
@@ -14,8 +15,9 @@ import { UserCheckAction, UserRefreshAction } from '@state/user/actions';
 export const AppRouter: FC = () => {
     const dispatch = useDispatch();
     const auth = useAuth();
-    const accessToken = localStorage.getItem('access_token');
-    const refreshToken = localStorage.getItem('refresh_token');
+
+    const accessToken = Cookies.get('access_token');
+    const refreshToken = Cookies.get('refresh_token');
 
     useEffect(() => {
         if (!auth) {

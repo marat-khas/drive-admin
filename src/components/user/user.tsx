@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
 
 import userAvatar from '@assets/img/user_avatar.jpg';
 import { getUser } from '@state/selectors';
@@ -12,7 +13,7 @@ export const User: FC = () => {
 
     const user = useSelector(getUser);
 
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = Cookies.get('access_token');
 
     const exitHandle = () => {
         if (accessToken) {
