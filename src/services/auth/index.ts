@@ -23,8 +23,12 @@ import {
 export const register = ({
     username,
     password,
-}: RegisterRequest): Promise<RegisterResponse> =>
-    baseApi
+}: RegisterRequest): Promise<RegisterResponse> => {
+    const headers = {
+        username: process.env.USERNAME,
+        password: process.env.PASSWORD,
+    };
+    return baseApi
         .post(
             REGISTER_URL,
             {
@@ -32,13 +36,11 @@ export const register = ({
                 password,
             },
             {
-                headers: {
-                    username: process.env.USERNAME,
-                    password: process.env.PASSWORD,
-                },
+                headers,
             }
         )
         .then((response) => response.data);
+};
 
 export const oauth = ({
     username,

@@ -75,7 +75,7 @@ export const Orders: FC = () => {
                     <p>Загрузка заказов ...</p>
                 )}
             </div>
-            {pageCount > 1 ? (
+            {pageCount > 1 && (
                 <div className='orders__pagination orders-pagination'>
                     <ReactPaginate
                         previousLabel='«'
@@ -95,7 +95,7 @@ export const Orders: FC = () => {
                         marginPagesDisplayed={2}
                     />
                 </div>
-            ) : null}
+            )}
         </div>
     );
 };

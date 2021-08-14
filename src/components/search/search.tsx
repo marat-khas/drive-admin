@@ -4,6 +4,6 @@ import './search.scss';
 
 export const Search: FC = () => (
     <div className='search'>
-        <input type='text' placeholder='Поиск ...' />
+        <input type='search' placeholder='Поиск ...' />
     </div>
 );

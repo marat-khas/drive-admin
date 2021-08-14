@@ -50,6 +50,10 @@ export const OrdersItem: FC<OrdersItemProps> = ({ order }) => {
         ? imgSrc(order.carId?.thumbnail.path)
         : CarPlaceholder;
 
+    const date = `${new Date(order.dateFrom).toLocaleDateString()} — ${new Date(
+        order.dateTo
+    ).toLocaleDateString()}`;
+
     const applyHandle = () => {
         const newOrder: {
             id: string;
@@ -120,11 +124,7 @@ export const OrdersItem: FC<OrdersItemProps> = ({ order }) => {
                                     {order.pointId &&
                                         `, ${order.pointId.address}`}
                                 </li>
-                                <li>{`${new Date(
-                                    order.dateFrom
-                                ).toLocaleDateString()} — ${new Date(
-                                    order.dateTo
-                                ).toLocaleDateString()}`}</li>
+                                <li>{date}</li>
                             </ul>
                         </div>
                     </div>

@@ -1,5 +1,7 @@
 @import '@vars';
 
+$signin-body-bg: #fff;
+
 .signin {
     width: 100%;
     min-height: 100vh;
@@ -32,7 +34,7 @@
         color: $color-text1;
     }
     &__body {
-        background: #FFFFFF;
+        background: $signin-body-bg;
         padding: 20px 17px;
         box-shadow: 0 1px 0 rgba($color-text3, 0.11), 0 2px 4px rgba($color-text3, 0.12), 0 5px 5px rgba($color-text3, 0.06), 0 3.5px 35px rgba($color-text3, 0.1);
         border-radius: 9px;
