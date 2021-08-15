@@ -1,0 +1,59 @@
+@import "@vars";
+
+.admin {
+    &__foot {
+        width: 100%;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 -3px 10px rgba($color-text3, 0.12);
+    }
+}
+
+.admin-foot {
+    width: 100%;
+}
+
+@media (min-width: 1200px) {
+    .admin {
+        &__foot {
+            min-height: 68px;
+        }
+    }
+}
+
+@media (max-width: 1199px) {
+    .admin {
+        &__foot {
+            min-height: 50px;
+        }
+    }
+}
+
+@media (min-width: 576px) {
+    .admin {
+        &__foot {
+            padding: 0 28px;
+        }
+    }
+    .admin-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 575px) {
+    .admin {
+        &__foot {
+            padding: 0 15px;
+        }
+    }
+    .admin-foot {
+        padding: 10px 0;
+        &__item {
+            padding: 10px 0;
+        }
+    }
+}

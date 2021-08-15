@@ -4,6 +4,8 @@ import { Notification } from '@components/notification';
 import { Search } from '@components/search';
 import { User } from '@components/user';
 
+import './admin-head.scss';
+
 export const AdminHead: FC = () => (
     <header className='admin__head'>
         <div className='admin-head'>

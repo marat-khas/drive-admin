@@ -7,6 +7,8 @@ import { AdminOrders } from '@components/admin-orders';
 import { Error } from '@components/error';
 import { ROUTES } from '@constants/routes';
 
+import './admin-body.scss';
+
 export const AdminBody: FC = () => (
     <main className='admin__body'>
         <div className='admin__in'>

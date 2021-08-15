@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import Logo from '@assets/img/logo.svg';
 import { Nav } from '@components/nav';
 
+import './admin-sidebar.scss';
+
 export const AdminSidebar: FC = () => {
     const [navOpen, setNavOpen] = useState(false);
     const navClasses = classNames('admin-sidebar__nav', {

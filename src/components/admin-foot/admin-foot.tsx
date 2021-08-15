@@ -2,6 +2,8 @@ import { FC } from 'react';
 
 import { Links } from '@components/links/links';
 
+import './admin-foot.scss';
+
 export const AdminFoot: FC = () => (
     <footer className='admin__foot'>
         <div className='admin-foot'>
