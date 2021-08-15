@@ -8,13 +8,13 @@ import { Filter } from '@components/filter';
 import { OrdersItem } from '@components/orders/orders-item';
 import { Pagination } from '@components/pagination';
 import { ORDER_STATUS_ID } from '@constants/order-status-id';
-import { GetCarsAction } from '@state/cars/actions';
 import { GetCitiesAction } from '@state/cities/actions';
 import { OrdersFilterUpdateAction } from '@state/filter/actions';
+import { GetModelsAction } from '@state/models/actions';
 import { OrderGetAction } from '@state/order/actions';
 import {
-    getCars,
     getCities,
+    getModels,
     getOrders,
     getOrdersCount,
     getOrdersFilter,
@@ -26,7 +26,7 @@ export const Orders: FC = () => {
     const dispatch = useDispatch();
 
     const filter = useSelector(getOrdersFilter);
-    const cars = useSelector(getCars);
+    const models = useSelector(getModels);
     const cities = useSelector(getCities);
     const orders = useSelector(getOrders);
     const pageCount = useSelector(getOrdersCount);
@@ -74,12 +74,12 @@ export const Orders: FC = () => {
     };
 
     useEffect(() => {
-        if (!cars) {
-            dispatch(GetCarsAction(history));
+        if (!models) {
+            dispatch(GetModelsAction(history));
         }
-    }, [cars, dispatch, history]);
+    }, [dispatch, history, models]);
 
-    const carFilter = cars
+    const modelFilter = models
         ? {
               id: 1,
               options: [
@@ -87,9 +87,9 @@ export const Orders: FC = () => {
                       label: 'Любая модель',
                       value: 'default',
                   },
-                  ...cars.map((car) => ({
-                      label: car.name,
-                      value: car.id,
+                  ...models.map((model) => ({
+                      label: model.name,
+                      value: model.id,
                   })),
               ],
               selectedValue: filter.carId,
@@ -164,8 +164,8 @@ export const Orders: FC = () => {
     };
 
     const filterItems = [dateFilter];
-    if (carFilter) {
-        filterItems.push(carFilter);
+    if (modelFilter) {
+        filterItems.push(modelFilter);
     }
     if (cityFilter) {
         filterItems.push(cityFilter);

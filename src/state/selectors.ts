@@ -14,6 +14,8 @@ export const getCarsCount = (state: RootState) => state.cars.count;
 
 export const getCarsFilter = (state: RootState) => state.filter.cars;
 
+export const getModels = (state: RootState) => state.models.data;
+
 export const getUser = (state: RootState) => state.user.data;
 
 export const getOrders = (state: RootState) => state.order.data;

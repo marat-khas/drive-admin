@@ -28,7 +28,7 @@ export const Cars: FC = () => {
     const filter = useSelector(getCarsFilter);
 
     useEffect(() => {
-        if (!cars || cars.length > filter.limit) {
+        if (!cars) {
             dispatch(GetCarsAction(history, queryString(filter)));
         }
     }, [cars, dispatch, filter.limit, filter, history]);
