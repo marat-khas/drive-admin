@@ -1,4 +1,4 @@
-@import '@vars';
+@import "@vars";
 
 .app {
     &__error {
@@ -19,13 +19,13 @@
         border-bottom: 0.5px solid rgba($color-text3, 0.12);
     }
     &__table {
+        padding: 10px 0;
         width: 100%;
     }
     &__thead {
         position: sticky;
     }
     &__tbody {
-
     }
     &__tr {
         display: flex;
@@ -35,6 +35,7 @@
         line-height: 1.2;
         font-weight: 400;
         color: $color-text1;
+        padding: 10px 0;
     }
     &__link {
         text-decoration: none;
@@ -44,13 +45,11 @@
         }
     }
     &__th {
-        flex: 1;
         padding: 15px;
         font-weight: 700;
     }
     &__td {
-        flex: 1;
-        padding: 15px;
+        padding: 5px 15px;
         img {
             display: block;
             max-width: 100%;
@@ -69,7 +68,7 @@
         &__pagination {
             padding: 20px;
         }
-    }    
+    }
 }
 
 @media (max-width: 575px) {
@@ -83,5 +82,47 @@
         &__pagination {
             padding: 15px;
         }
-    }    
+    }
+}
+
+@media (min-width: 768px) {
+    .entities {
+        &__th, &__td {
+            flex: 1;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .entities {
+        &__thead {
+            display: none;
+        }
+        &__tr {
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba($color-text3, 0.12);
+        }
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .entities {
+        &__td {
+            width: 33.333%;
+            &:nth-child(1) {
+                width: 66.666%;
+            }
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .entities {
+        &__td {
+            width: 50%;
+            &:nth-child(1) {
+                width: 100%;
+            }
+        }
+    }
 }

@@ -12,6 +12,7 @@ export interface OrdersFilterState {
 export interface CarsFilterState {
     limit: number;
     page: number;
+    categoryId: string | null;
 }
 
 export interface FilterState {

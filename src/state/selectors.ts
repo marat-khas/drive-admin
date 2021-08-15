@@ -21,3 +21,5 @@ export const getOrders = (state: RootState) => state.order.data;
 export const getOrdersCount = (state: RootState) => state.order.count;
 
 export const getOrdersFilter = (state: RootState) => state.filter.orders;
+
+export const getCategories = (state: RootState) => state.categories.categories;

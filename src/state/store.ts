@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 
 import { carReducer } from '@state/car/reducer';
 import { carsReducer } from '@state/cars/reducer';
+import { categoriesReducer } from '@state/categories/reducer';
 import { citiesReducer } from '@state/cities/reducer';
 import { FilterReducer } from '@state/filter/reducer';
 import { GlobalReducer } from '@state/global/reducer';
@@ -16,6 +17,7 @@ const rootReducer = combineReducers<RootState>({
     car: carReducer,
     cars: carsReducer,
     cities: citiesReducer,
+    categories: categoriesReducer,
     user: UserReducer,
     order: OrderReducer,
     filter: FilterReducer,

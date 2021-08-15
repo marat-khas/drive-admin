@@ -14,5 +14,6 @@ export const FilterStateDefault: FilterState = {
     cars: {
         limit: 10,
         page: 0,
+        categoryId: null,
     },
 };

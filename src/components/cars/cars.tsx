@@ -3,10 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 
 import CarPlaceholder from '@assets/img/car_placeholder.jpg';
+import { Filter } from '@components/filter';
 import { Pagination } from '@components/pagination';
 import { GetCarsAction } from '@state/cars/actions';
+import { GetCategoriesAction } from '@state/categories/actions';
 import { CarsFilterUpdateAction } from '@state/filter/actions';
-import { getCars, getCarsCount, getCarsFilter } from '@state/selectors';
+import {
+    getCars,
+    getCarsCount,
+    getCarsFilter,
+    getCategories,
+} from '@state/selectors';
 import { queryString } from '@utils/query string';
 
 export const Cars: FC = () => {
@@ -15,18 +22,76 @@ export const Cars: FC = () => {
 
     const pageCount = useSelector(getCarsCount);
 
+    const categories = useSelector(getCategories);
+
     const cars = useSelector(getCars);
     const filter = useSelector(getCarsFilter);
-    const filterStr = queryString(filter);
 
     useEffect(() => {
         if (!cars || cars.length > filter.limit) {
-            dispatch(GetCarsAction(history, filterStr));
+            dispatch(GetCarsAction(history, queryString(filter)));
         }
-    }, [cars, dispatch, filter.limit, filterStr, history]);
+    }, [cars, dispatch, filter.limit, filter, history]);
+
+    useEffect(() => {
+        if (!categories) {
+            dispatch(GetCategoriesAction(history));
+        }
+    }, [categories, dispatch, history]);
+
+    const categoryFilter = categories
+        ? {
+              id: 2,
+              options: [
+                  {
+                      label: 'Любая категория',
+                      value: 'default',
+                  },
+                  ...categories.map((category) => ({
+                      label: category.name,
+                      value: category.id,
+                  })),
+              ],
+              selectedValue: filter.categoryId,
+              onChange: (id: string) => {
+                  dispatch(
+                      CarsFilterUpdateAction({
+                          categoryId: id === 'default' ? null : id,
+                      })
+                  );
+              },
+          }
+        : null;
+
+    const filterItems = [];
+
+    if (categoryFilter) {
+        filterItems.push(categoryFilter);
+    }
+
+    const applyHandle = () => {
+        const newFilter = {
+            page: 0,
+        };
+        dispatch(CarsFilterUpdateAction(newFilter));
+        dispatch(
+            GetCarsAction(history, queryString({ ...filter, ...newFilter }))
+        );
+    };
+
+    const clearHandle = () => {
+        const newFilter = {
+            page: 0,
+            categoryId: null,
+        };
+        dispatch(CarsFilterUpdateAction(newFilter));
+        dispatch(
+            GetCarsAction(history, queryString({ ...filter, ...newFilter }))
+        );
+    };
 
     const changePage = (selectedItem: { selected: number }) => {
-        const newPage = selectedItem.selected + 1;
+        const newPage = selectedItem.selected;
         dispatch(
             CarsFilterUpdateAction({
                 page: newPage,
@@ -45,7 +110,13 @@ export const Cars: FC = () => {
 
     return (
         <div className='entities cars'>
-            <div className='entities__filter' />
+            <div className='entities__filter'>
+                <Filter
+                    filterItems={filterItems}
+                    applyHandle={applyHandle}
+                    clearHandle={clearHandle}
+                />
+            </div>
             <div className='entities__body'>
                 <div className='entities__table'>
                     <div className='entities__thead'>
@@ -92,13 +163,9 @@ export const Cars: FC = () => {
                 </div>
             </div>
             <div className='entities__pagination'>
-                {pageCount > 1 && (
+                {pageCount > filter.limit && (
                     <Pagination
-                        pageCount={
-                            pageCount
-                                ? Math.ceil(pageCount / filter.limit) - 1
-                                : 0
-                        }
+                        pageCount={Math.ceil(pageCount / filter.limit)}
                         onPageChange={changePage}
                     />
                 )}

@@ -174,16 +174,15 @@ export const Orders: FC = () => {
 
     const applyHandle = () => {
         if (acessToken) {
-            dispatch(
-                OrdersFilterUpdateAction({
-                    page: 1,
-                })
-            );
+            const newFilter = {
+                page: 0,
+            };
+            dispatch(OrdersFilterUpdateAction(newFilter));
             dispatch(
                 OrderGetAction(
                     {
                         access_token: acessToken,
-                        filter: queryString({ ...filter, page: 1 }),
+                        filter: queryString({ ...filter, ...newFilter }),
                     },
                     history
                 )
@@ -193,7 +192,7 @@ export const Orders: FC = () => {
 
     const clearHandle = () => {
         const newFilter = {
-            page: 1,
+            page: 0,
             cityId: null,
             carId: null,
             dateFrom: null,
@@ -217,7 +216,7 @@ export const Orders: FC = () => {
     };
 
     const changePage = (selectedItem: { selected: number }) => {
-        const newPage = selectedItem.selected + 1;
+        const newPage = selectedItem.selected;
         dispatch(
             OrdersFilterUpdateAction({
                 page: newPage,
@@ -257,11 +256,9 @@ export const Orders: FC = () => {
                     <p>Загрузка заказов ...</p>
                 )}
             </div>
-            {pageCount > 1 && (
+            {pageCount > filter.limit && (
                 <Pagination
-                    pageCount={
-                        pageCount ? Math.ceil(pageCount / filter.limit) - 1 : 0
-                    }
+                    pageCount={Math.ceil(pageCount / filter.limit)}
                     onPageChange={changePage}
                 />
             )}

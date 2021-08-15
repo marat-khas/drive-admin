@@ -1,4 +1,5 @@
 import { CarsState } from '@state/cars/types';
+import { CategoriesState } from '@state/categories/types';
 import { CitiesState } from '@state/cities/types';
 import { FilterState } from '@state/filter/types';
 import { GlobalState } from '@state/global/types';
@@ -15,6 +16,7 @@ export interface RootState {
     car: CarState;
     cars: CarsState;
     cities: CitiesState;
+    categories: CategoriesState;
     user: UserState;
     order: OrderState;
     filter: FilterState;
