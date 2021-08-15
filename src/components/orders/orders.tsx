@@ -1,5 +1,4 @@
 import { FC, useEffect } from 'react';
-import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { addMonths, addWeeks } from 'date-fns';
@@ -7,6 +6,7 @@ import Cookies from 'js-cookie';
 
 import { Filter } from '@components/filter';
 import { OrdersItem } from '@components/orders/orders-item';
+import { Pagination } from '@components/pagination';
 import { ORDER_STATUS_ID } from '@constants/order-status-id';
 import { GetCarsAction } from '@state/cars/actions';
 import { GetCitiesAction } from '@state/cities/actions';
@@ -20,8 +20,6 @@ import {
     getOrdersCount,
 } from '@state/selectors';
 import { queryString } from '@utils/query string';
-
-import './orders.scss';
 
 export const Orders: FC = () => {
     const history = useHistory();
@@ -243,15 +241,15 @@ export const Orders: FC = () => {
     };
 
     return (
-        <div className='orders'>
-            <div className='orders__filter'>
+        <div className='entities orders'>
+            <div className='entities__filter'>
                 <Filter
                     filterItems={filterItems}
                     applyHandle={applyHandle}
                     clearHandle={clearHandle}
                 />
             </div>
-            <div className='orders__items'>
+            <div className='entities__items'>
                 {orders ? (
                     orders.map((order) => (
                         <OrdersItem order={order} key={order.id} />
@@ -261,25 +259,10 @@ export const Orders: FC = () => {
                 )}
             </div>
             {pageCount > 1 && (
-                <div className='orders__pagination orders-pagination'>
-                    <ReactPaginate
-                        previousLabel='«'
-                        nextLabel='»'
-                        pageCount={
-                            pageCount ? Math.ceil(pageCount / limit) - 1 : 0
-                        }
-                        onPageChange={changePage}
-                        containerClassName='orders-pagination__container'
-                        pageClassName='orders-pagination__page'
-                        previousClassName='orders-pagination__page orders-pagination__page--prev'
-                        nextClassName='orders-pagination__page orders-pagination__page--next'
-                        breakClassName='orders-pagination__page orders-pagination__page--break'
-                        disabledClassName='isDisabled'
-                        activeClassName='isActive'
-                        pageRangeDisplayed={2}
-                        marginPagesDisplayed={2}
-                    />
-                </div>
+                <Pagination
+                    pageCount={pageCount ? Math.ceil(pageCount / limit) - 1 : 0}
+                    onPageChange={changePage}
+                />
             )}
         </div>
     );

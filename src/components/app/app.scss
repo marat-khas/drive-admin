@@ -1,3 +1,5 @@
+@import '@vars';
+
 .app {
     &__error {
         width: 100%;
@@ -6,4 +8,42 @@
         align-items: center;
         justify-content: center;
     }
+}
+
+.entities {
+    &__filter {
+        border-bottom: 0.5px solid rgba($color-text3, 0.12);
+    }
+    &__items {
+        min-height: 300px;
+        border-bottom: 0.5px solid rgba($color-text3, 0.12);
+    }
+}
+
+@media (min-width: 576px) {
+    .entities {
+        &__filter {
+            padding: 20px;
+        }
+        &__items {
+            padding: 0 20px;
+        }
+        &__pagination {
+            padding: 20px;
+        }
+    }    
+}
+
+@media (max-width: 575px) {
+    .entities {
+        &__filter {
+            padding: 15px;
+        }
+        &__items {
+            padding: 0 15px;
+        }
+        &__pagination {
+            padding: 15px;
+        }
+    }    
 }
