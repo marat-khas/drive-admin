@@ -18,7 +18,8 @@ export const GetCarSuccessAction = (car: Car): GetCar => ({
 
 export const GetCarAction =
     (id: string, history: History) => (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Загрузка данных авто ...'));
+        const action = 'Загрузка данных авто';
+        dispatch(LoadingStartAction(action));
         getCar(id)
             .then((data) => {
                 dispatch(GetCarSuccessAction(data));
@@ -33,6 +34,6 @@ export const GetCarAction =
                 );
             })
             .finally(() => {
-                dispatch(LoadingEndAction('Загрузка данных авто ...'));
+                dispatch(LoadingEndAction(action));
             });
     };

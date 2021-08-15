@@ -18,7 +18,8 @@ export const GetModelsSuccessAction = (models: Model[]): GetModels => ({
 
 export const GetModelsAction =
     (history: History) => (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Загрузка моделей ...'));
+        const action = 'Загрузка моделей';
+        dispatch(LoadingStartAction(action));
         getCars()
             .then((models) => {
                 dispatch(GetModelsSuccessAction(models.data));
@@ -33,6 +34,6 @@ export const GetModelsAction =
                 );
             })
             .finally(() => {
-                dispatch(LoadingEndAction('Загрузка моделей ...'));
+                dispatch(LoadingEndAction(action));
             });
     };

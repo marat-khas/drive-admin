@@ -23,7 +23,8 @@ export const CarsCountAction = (data: number): CarsCount => ({
 
 export const GetCarsAction =
     (history: History, filter?: string) => (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Загрузка автомобилей ...'));
+        const action = 'Загрузка автомобилей';
+        dispatch(LoadingStartAction(action));
         getCars(filter)
             .then((cars) => {
                 dispatch(GetCarsSuccessAction(cars.data));
@@ -39,6 +40,6 @@ export const GetCarsAction =
                 );
             })
             .finally(() => {
-                dispatch(LoadingEndAction('Загрузка автомобилей ...'));
+                dispatch(LoadingEndAction(action));
             });
     };

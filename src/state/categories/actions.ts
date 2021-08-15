@@ -20,7 +20,8 @@ export const GetCategoriesSuccessAction = (
 
 export const GetCategoriesAction =
     (history: History) => (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Загрузка категорий ...'));
+        const action = 'Загрузка категорий';
+        dispatch(LoadingStartAction(action));
         getCategories()
             .then((categories) => {
                 dispatch(GetCategoriesSuccessAction(categories));
@@ -35,6 +36,6 @@ export const GetCategoriesAction =
                 );
             })
             .finally(() => {
-                dispatch(LoadingEndAction('Загрузка категорий ...'));
+                dispatch(LoadingEndAction(action));
             });
     };

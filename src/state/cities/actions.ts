@@ -18,7 +18,8 @@ export const GetCitiesSuccessAction = (cities: City[]): GetCities => ({
 
 export const GetCitiesAction =
     (history: History) => (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Загрузка городов ...'));
+        const action = 'Загрузка городов';
+        dispatch(LoadingStartAction(action));
         getCities()
             .then((data) => {
                 dispatch(GetCitiesSuccessAction(data));
@@ -33,6 +34,6 @@ export const GetCitiesAction =
                 );
             })
             .finally(() => {
-                dispatch(LoadingEndAction('Загрузка городов ...'));
+                dispatch(LoadingEndAction(action));
             });
     };

@@ -27,7 +27,8 @@ export const UserAuthAction = (
 
 export const UserCheckAction =
     (data: CheckRequest) => (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Проверка пользователя ...'));
+        const action = 'Проверка пользователя';
+        dispatch(LoadingStartAction(action));
         check(data)
             .then((user) => {
                 dispatch(UserAuthAction(user));
@@ -38,13 +39,14 @@ export const UserCheckAction =
                 console.error(error);
             })
             .finally(() => {
-                dispatch(LoadingEndAction('Проверка пользователя ...'));
+                dispatch(LoadingEndAction(action));
             });
     };
 
 export const UserOauthAction =
     (data: OauthRequest) => (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Авторизация ...'));
+        const action = 'Авторизация';
+        dispatch(LoadingStartAction(action));
         oauth(data)
             .then((access) => {
                 Cookies.set('access_token', access.access_token);
@@ -66,13 +68,14 @@ export const UserOauthAction =
                 );
             })
             .finally(() => {
-                dispatch(LoadingEndAction('Авторизация ...'));
+                dispatch(LoadingEndAction(action));
             });
     };
 
 export const UserRegisterAction =
     (data: RegisterRequest) => (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Регистрация ...'));
+        const action = 'Регистрация';
+        dispatch(LoadingStartAction(action));
         register(data)
             .then(() => {
                 dispatch(UserOauthAction(data));
@@ -86,13 +89,14 @@ export const UserRegisterAction =
                 );
             })
             .finally(() => {
-                dispatch(LoadingEndAction('Регистрация ...'));
+                dispatch(LoadingEndAction(action));
             });
     };
 
 export const UserRefreshAction =
     (data: RefreshRequest) => (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Обновление данных ...'));
+        const action = 'Обновление данных';
+        dispatch(LoadingStartAction(action));
         refresh(data)
             .then((access) => {
                 Cookies.set('access_token', access.access_token);
@@ -108,13 +112,14 @@ export const UserRefreshAction =
                 );
             })
             .finally(() => {
-                dispatch(LoadingEndAction('Обновление данных ...'));
+                dispatch(LoadingEndAction(action));
             });
     };
 
 export const UserLogoutAction =
     (data: LogoutRequest) => (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Выход из учетной записи ...'));
+        const action = 'Выход из учетной записи';
+        dispatch(LoadingStartAction(action));
         Cookies.remove('access_token');
         Cookies.remove('refresh_token');
         logout(data)
@@ -131,6 +136,6 @@ export const UserLogoutAction =
                 );
             })
             .finally(() => {
-                dispatch(LoadingEndAction('Выход из учетной записи ...'));
+                dispatch(LoadingEndAction(action));
             });
     };

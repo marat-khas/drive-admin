@@ -39,7 +39,8 @@ export const OrderChangeSuccessAction = (order: {
 export const OrderChangeAction =
     ({ id, data }: { id: string; data: Partial<Order> }) =>
     (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Обновление заказа ...'));
+        const action = 'Обновление заказа';
+        dispatch(LoadingStartAction(action));
         changeOrder(id, data)
             .then(() => {
                 dispatch(OrderChangeSuccessAction({ id, data }));
@@ -53,13 +54,14 @@ export const OrderChangeAction =
                 );
             })
             .finally(() => {
-                dispatch(LoadingEndAction('Обновление заказа ...'));
+                dispatch(LoadingEndAction(action));
             });
     };
 
 export const OrderGetAction =
     (data: OrderRequest, history: History) => (dispatch: Dispatch<any>) => {
-        dispatch(LoadingStartAction('Получение заказов ...'));
+        const action = 'Получение заказов';
+        dispatch(LoadingStartAction(action));
         getOrders(data)
             .then((orders) => {
                 dispatch(OrderRecordAction(orders.data));
@@ -75,6 +77,6 @@ export const OrderGetAction =
                 );
             })
             .finally(() => {
-                dispatch(LoadingEndAction('Получение заказов ...'));
+                dispatch(LoadingEndAction(action));
             });
     };
