@@ -10,14 +10,14 @@ import { Pagination } from '@components/pagination';
 import { ORDER_STATUS_ID } from '@constants/order-status-id';
 import { GetCarsAction } from '@state/cars/actions';
 import { GetCitiesAction } from '@state/cities/actions';
-import { FilterUpdateAction } from '@state/filter/actions';
+import { OrdersFilterUpdateAction } from '@state/filter/actions';
 import { OrderGetAction } from '@state/order/actions';
 import {
     getCars,
     getCities,
-    getFilter,
     getOrders,
     getOrdersCount,
+    getOrdersFilter,
 } from '@state/selectors';
 import { queryString } from '@utils/query string';
 
@@ -25,12 +25,11 @@ export const Orders: FC = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const filter = useSelector(getFilter);
+    const filter = useSelector(getOrdersFilter);
     const cars = useSelector(getCars);
     const cities = useSelector(getCities);
     const orders = useSelector(getOrders);
     const pageCount = useSelector(getOrdersCount);
-    const { limit } = useSelector(getFilter);
 
     const acessToken = Cookies.get('access_token');
 
@@ -67,7 +66,7 @@ export const Orders: FC = () => {
         selectedValue: filter.cityId,
         onChange: (from: string) => {
             dispatch(
-                FilterUpdateAction({
+                OrdersFilterUpdateAction({
                     dateFrom: from === 'default' ? null : from,
                 })
             );
@@ -96,7 +95,7 @@ export const Orders: FC = () => {
               selectedValue: filter.carId,
               onChange: (id: string) => {
                   dispatch(
-                      FilterUpdateAction({
+                      OrdersFilterUpdateAction({
                           carId: id === 'default' ? null : id,
                       })
                   );
@@ -126,7 +125,7 @@ export const Orders: FC = () => {
               selectedValue: filter.cityId,
               onChange: (id: string) => {
                   dispatch(
-                      FilterUpdateAction({
+                      OrdersFilterUpdateAction({
                           cityId: id === 'default' ? null : id,
                       })
                   );
@@ -157,7 +156,7 @@ export const Orders: FC = () => {
         selectedValue: filter.cityId,
         onChange: (id: string) => {
             dispatch(
-                FilterUpdateAction({
+                OrdersFilterUpdateAction({
                     orderStatusId: id === 'default' ? null : id,
                 })
             );
@@ -176,7 +175,7 @@ export const Orders: FC = () => {
     const applyHandle = () => {
         if (acessToken) {
             dispatch(
-                FilterUpdateAction({
+                OrdersFilterUpdateAction({
                     page: 1,
                 })
             );
@@ -200,7 +199,7 @@ export const Orders: FC = () => {
             dateFrom: null,
             orderStatusId: null,
         };
-        dispatch(FilterUpdateAction(newFilter));
+        dispatch(OrdersFilterUpdateAction(newFilter));
         if (acessToken) {
             dispatch(
                 OrderGetAction(
@@ -220,7 +219,7 @@ export const Orders: FC = () => {
     const changePage = (selectedItem: { selected: number }) => {
         const newPage = selectedItem.selected + 1;
         dispatch(
-            FilterUpdateAction({
+            OrdersFilterUpdateAction({
                 page: newPage,
             })
         );
@@ -260,7 +259,9 @@ export const Orders: FC = () => {
             </div>
             {pageCount > 1 && (
                 <Pagination
-                    pageCount={pageCount ? Math.ceil(pageCount / limit) - 1 : 0}
+                    pageCount={
+                        pageCount ? Math.ceil(pageCount / filter.limit) - 1 : 0
+                    }
                     onPageChange={changePage}
                 />
             )}

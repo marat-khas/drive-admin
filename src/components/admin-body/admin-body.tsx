@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { AdminCard } from '@components/admin-card';
+import { AdminCar } from '@components/admin-car';
 import { AdminCars } from '@components/admin-cars';
 import { AdminOrders } from '@components/admin-orders';
 import { Error } from '@components/error';
@@ -15,7 +15,7 @@ export const AdminBody: FC = () => (
             <Switch>
                 <Route exact path={ROUTES.ORDERS} component={AdminOrders} />
                 <Route path={ROUTES.CARS} component={AdminCars} />
-                <Route path={ROUTES.CARD} component={AdminCard} />
+                <Route path={`${ROUTES.CAR}/:id`} component={AdminCar} />
                 <Route path={ROUTES.ERROR}>
                     <div className='admin__error'>
                         <Error

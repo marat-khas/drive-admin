@@ -6,10 +6,13 @@ import { OrderState } from '@state/order/types';
 import { store } from '@state/store';
 import { UserState } from '@state/user/types';
 
+import { CarState } from './car/types';
+
 export type AppDispatch = typeof store.dispatch;
 
 export interface RootState {
     global: GlobalState;
+    car: CarState;
     cars: CarsState;
     cities: CitiesState;
     user: UserState;

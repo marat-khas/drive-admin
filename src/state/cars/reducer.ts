@@ -11,10 +11,16 @@ export const carsReducer = (
         case CarsActionTypes.GET_CARS_SUCCESS: {
             return {
                 ...state,
-                cars: action.payload.map((car) => {
+                data: action.payload.map((car) => {
                     const { path } = car.thumbnail;
                     return { ...car, thumbnail: { path: imgSrc(path) } };
                 }),
+            };
+        }
+        case CarsActionTypes.CARS_COUNT: {
+            return {
+                ...state,
+                count: action.payload,
             };
         }
         default:

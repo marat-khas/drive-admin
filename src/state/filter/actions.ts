@@ -1,8 +1,19 @@
-import { FilterActionTypes, FilterUpdate } from './types';
+import {
+    CarsFilterUpdate,
+    FilterActionTypes,
+    OrdersFilterUpdate,
+} from './types';
 
-export const FilterUpdateAction = (
+export const OrdersFilterUpdateAction = (
     data: Record<string, any>
-): FilterUpdate => ({
-    type: FilterActionTypes.FILTER_UPDATE,
+): OrdersFilterUpdate => ({
+    type: FilterActionTypes.ORDERS_FILTER_UPDATE,
+    payload: data,
+});
+
+export const CarsFilterUpdateAction = (
+    data: Record<string, any>
+): CarsFilterUpdate => ({
+    type: FilterActionTypes.CARS_FILTER_UPDATE,
     payload: data,
 });

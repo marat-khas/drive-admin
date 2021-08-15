@@ -5,11 +5,12 @@ import { CarSettingsSchema } from '@components/car-settings/schema';
 import { CarSettingsSchemaProps } from '@components/car-settings/types';
 import { Button } from '@components/common/button';
 import { Input } from '@components/common/input/input';
+import { Car } from '@state/cars/types';
 
 import './car-settings.scss';
 
-export const CarSettings: FC = () => {
-    const [colors, setColors] = useState(['Красный', 'Белый', 'Черный']);
+export const CarSettings: FC<{ car: Car }> = ({ car }) => {
+    const [colors, setColors] = useState(car.colors || []);
 
     const addColor = (color: string) => {
         if (color.trim() !== '' && colors.indexOf(color) === -1) {
@@ -22,8 +23,8 @@ export const CarSettings: FC = () => {
     };
 
     const initialValues: CarSettingsSchemaProps = {
-        model: '',
-        type: '',
+        model: car.name,
+        type: car.categoryId?.name || '',
         color: '',
     };
 

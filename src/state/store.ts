@@ -2,6 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
+import { carReducer } from '@state/car/reducer';
 import { carsReducer } from '@state/cars/reducer';
 import { citiesReducer } from '@state/cities/reducer';
 import { FilterReducer } from '@state/filter/reducer';
@@ -12,6 +13,7 @@ import { UserReducer } from '@state/user/reducer';
 
 const rootReducer = combineReducers<RootState>({
     global: GlobalReducer,
+    car: carReducer,
     cars: carsReducer,
     cities: citiesReducer,
     user: UserReducer,

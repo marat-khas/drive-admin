@@ -1,7 +1,7 @@
 export const ROUTES = {
     MAIN: '/',
     ORDERS: '/admin',
-    CARD: '/admin/card',
+    CAR: '/admin/car',
     CARS: '/admin/cars',
     ERROR: '/admin/error',
 };

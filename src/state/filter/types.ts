@@ -1,4 +1,4 @@
-export interface FilterState {
+export interface OrdersFilterState {
     limit: number;
     page: number;
     dateFrom: number | null;
@@ -9,13 +9,29 @@ export interface FilterState {
     orderStatusId: string | null;
 }
 
+export interface CarsFilterState {
+    limit: number;
+    page: number;
+}
+
+export interface FilterState {
+    orders: OrdersFilterState;
+    cars: CarsFilterState;
+}
+
 export enum FilterActionTypes {
-    FILTER_UPDATE = 'FILTER_UPDATE',
+    ORDERS_FILTER_UPDATE = 'ORDERS_FILTER_UPDATE',
+    CARS_FILTER_UPDATE = 'CARS_FILTER_UPDATE',
 }
 
-export interface FilterUpdate {
-    type: FilterActionTypes.FILTER_UPDATE;
-    payload: Record<keyof FilterState, any>;
+export interface OrdersFilterUpdate {
+    type: FilterActionTypes.ORDERS_FILTER_UPDATE;
+    payload: Record<keyof OrdersFilterState, any>;
 }
 
-export type FilterAction = FilterUpdate;
+export interface CarsFilterUpdate {
+    type: FilterActionTypes.CARS_FILTER_UPDATE;
+    payload: Record<keyof OrdersFilterState, any>;
+}
+
+export type FilterAction = OrdersFilterUpdate | CarsFilterUpdate;

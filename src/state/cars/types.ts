@@ -18,11 +18,13 @@ export interface Car {
 }
 
 export interface CarsState {
-    cars: Car[] | null;
+    data: Car[] | null;
+    count: number;
 }
 
 export enum CarsActionTypes {
     GET_CARS_SUCCESS = 'GET_CARS_SUCCESS',
+    CARS_COUNT = 'CARS_COUNT',
 }
 
 export interface GetCars {
@@ -30,4 +32,9 @@ export interface GetCars {
     payload: Car[];
 }
 
-export type CarsAction = GetCars;
+export interface CarsCount {
+    type: CarsActionTypes.CARS_COUNT;
+    payload: number;
+}
+
+export type CarsAction = GetCars | CarsCount;

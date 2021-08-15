@@ -9,22 +9,25 @@ import {
     ModalShowAction,
 } from '@state/global/actions';
 
-import { Car, CarsActionTypes, GetCars } from './types';
+import { Car, CarsActionTypes, CarsCount, GetCars } from './types';
 
 export const GetCarsSuccessAction = (cars: Car[]): GetCars => ({
     type: CarsActionTypes.GET_CARS_SUCCESS,
     payload: cars,
 });
 
+export const CarsCountAction = (data: number): CarsCount => ({
+    type: CarsActionTypes.CARS_COUNT,
+    payload: data,
+});
+
 export const GetCarsAction =
-    (history: History) => (dispatch: Dispatch<any>) => {
+    (history: History, filter?: string) => (dispatch: Dispatch<any>) => {
         dispatch(LoadingStartAction('Загрузка автомобилей ...'));
-        getCars()
-            .then((data) =>
-                data.filter((car) => car.colors && car.colors.length)
-            )
-            .then((data) => {
-                dispatch(GetCarsSuccessAction(data));
+        getCars(filter)
+            .then((cars) => {
+                dispatch(GetCarsSuccessAction(cars.data));
+                dispatch(CarsCountAction(cars.count));
             })
             .catch((error) => {
                 history.push(ROUTES.ERROR);

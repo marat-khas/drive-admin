@@ -6,10 +6,16 @@ export const FilterReducer = (
     action: FilterAction
 ): FilterState => {
     switch (action.type) {
-        case FilterActionTypes.FILTER_UPDATE: {
+        case FilterActionTypes.ORDERS_FILTER_UPDATE: {
             return {
                 ...state,
-                ...action.payload,
+                orders: { ...state.orders, ...action.payload },
+            };
+        }
+        case FilterActionTypes.CARS_FILTER_UPDATE: {
+            return {
+                ...state,
+                cars: { ...state.cars, ...action.payload },
             };
         }
         default:

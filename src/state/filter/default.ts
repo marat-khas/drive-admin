@@ -1,12 +1,18 @@
 import { FilterState } from './types';
 
 export const FilterStateDefault: FilterState = {
-    limit: 10,
-    page: 1,
-    dateFrom: null,
-    dateTo: null,
-    carId: null,
-    cityId: null,
-    categoryId: null,
-    orderStatusId: null,
+    orders: {
+        limit: 10,
+        page: 0,
+        dateFrom: null,
+        dateTo: null,
+        carId: null,
+        cityId: null,
+        categoryId: null,
+        orderStatusId: null,
+    },
+    cars: {
+        limit: 10,
+        page: 0,
+    },
 };
