@@ -16,7 +16,7 @@ export const OrdersItem: FC<OrdersItemProps> = ({ order }) => {
     const dispatch = useDispatch();
 
     const [editMode, setEditMode] = useState(false);
-    const [price, setPrice] = useState(order.price.toString() || '0');
+    const [price, setPrice] = useState(order.price?.toString() || '0');
     const [isFullTank, setIsFullTank] = useState(order.isFullTank);
     const [isNeedChildChair, setIsNeedChildChair] = useState(
         order.isNeedChildChair
@@ -81,7 +81,7 @@ export const OrdersItem: FC<OrdersItemProps> = ({ order }) => {
     };
 
     const cancelHandle = () => {
-        setPrice(order.price.toString() || '0');
+        setPrice(order.price?.toString() || '0');
         setIsFullTank(order.isFullTank);
         setIsNeedChildChair(order.isNeedChildChair);
         setIsRightWheel(order.isRightWheel);
