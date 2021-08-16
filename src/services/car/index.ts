@@ -19,3 +19,21 @@ export const getCar = (id: string): Promise<Car> =>
             url: `${CAR_URL}/${id}`,
         })
         .then((response: GetCarResponse) => response.data.data);
+
+export const changeCar = (
+    id: string,
+    accessToken: string,
+    data: Partial<Car>
+): Promise<string> =>
+    baseApi.put(`${CAR_URL}/${id}`, data, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+
+export const deleteCar = (id: string, accessToken: string): Promise<string> =>
+    baseApi.delete(`${CAR_URL}/${id}`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });

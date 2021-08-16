@@ -23,13 +23,13 @@ export interface CarsState {
 }
 
 export enum CarsActionTypes {
-    GET_CARS_SUCCESS = 'GET_CARS_SUCCESS',
+    CAR_GETS_SUCCESS = 'CAR_GETS_SUCCESS',
     CARS_COUNT = 'CARS_COUNT',
 }
 
 export interface GetCars {
-    type: CarsActionTypes.GET_CARS_SUCCESS;
-    payload: Car[];
+    type: CarsActionTypes.CAR_GETS_SUCCESS;
+    payload: Car[] | null;
 }
 
 export interface CarsCount {

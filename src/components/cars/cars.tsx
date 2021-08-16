@@ -132,6 +132,7 @@ export const Cars: FC = () => {
                         {cars ? (
                             cars.map((car) => (
                                 <Link
+                                    key={car.id}
                                     to={`/admin/car/${car.id}`}
                                     className='entities__tr entities__link'
                                 >

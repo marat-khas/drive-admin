@@ -11,8 +11,8 @@ import {
 
 import { Car, CarsActionTypes, CarsCount, GetCars } from './types';
 
-export const GetCarsSuccessAction = (cars: Car[]): GetCars => ({
-    type: CarsActionTypes.GET_CARS_SUCCESS,
+export const GetCarsSuccessAction = (cars: Car[] | null): GetCars => ({
+    type: CarsActionTypes.CAR_GETS_SUCCESS,
     payload: cars,
 });
 

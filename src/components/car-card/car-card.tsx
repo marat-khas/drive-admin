@@ -2,12 +2,18 @@ import { FC } from 'react';
 
 import CarPlaceholder from '@assets/img/car_placeholder.jpg';
 import { Upload } from '@components/common/upload';
-import { Car } from '@state/cars/types';
 import { imgSrc } from '@utils/img-src';
 
 import './car-card.scss';
 
-export const CarCard: FC<{ car: Car }> = ({ car }) => {
+import { CarCardProps } from './types';
+
+export const CarCard: FC<CarCardProps> = ({
+    car,
+    descValue,
+    descChangeHandle,
+    imgChangeHandle,
+}) => {
     const img = car.thumbnail ? imgSrc(car.thumbnail.path) : CarPlaceholder;
     return (
         <div className='car-card'>
@@ -23,7 +29,10 @@ export const CarCard: FC<{ car: Car }> = ({ car }) => {
                         </div>
                     </div>
                     <div className='car-card-view__upload'>
-                        <Upload id='car-card-upload' />
+                        <Upload
+                            id='car-card-upload'
+                            onChange={imgChangeHandle}
+                        />
                     </div>
                 </div>
             </div>
@@ -52,7 +61,14 @@ export const CarCard: FC<{ car: Car }> = ({ car }) => {
                     <div className='car-card-info__item'>
                         <div className='car-card-info__head'>Описание</div>
                         <div className='car-card-info__body'>
-                            {car.description}
+                            <textarea
+                                value={descValue}
+                                onChange={(e) => {
+                                    if (descChangeHandle) {
+                                        descChangeHandle(e.target.value);
+                                    }
+                                }}
+                            />
                         </div>
                     </div>
                 </div>

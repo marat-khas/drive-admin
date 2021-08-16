@@ -8,6 +8,7 @@ export const Upload: FC<UploadProps> = ({
     id,
     label = 'Выберите файл...',
     btnText = 'Обзор',
+    onChange,
 }) => {
     const [value, setValue] = useState<string | null>(null);
     const changeHandle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +20,12 @@ export const Upload: FC<UploadProps> = ({
                 type='file'
                 id={id}
                 className='upload__input'
-                onChange={changeHandle}
+                onChange={(e) => {
+                    changeHandle(e);
+                    if (onChange) {
+                        onChange(e.target.value);
+                    }
+                }}
             />
             <label htmlFor={id} className='upload__label'>
                 <div className='upload__text'>
