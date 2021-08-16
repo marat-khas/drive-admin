@@ -1,0 +1,85 @@
+@import "@vars";
+
+.user {
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px 0 5px 26px;
+    &__avatar {
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 12px;
+        img {
+            display: block;
+            width: 42px;
+            height: 42px;
+        }
+    }
+    &__login {
+        position: relative;
+        width: 120px;
+        padding-right: 15px;
+        font-size: 15px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: $color-text3;
+        white-space: nowrap;
+        span {
+            display: block;
+            overflow: hidden;
+        }
+        &:after {
+            content: "";
+            display: block;
+            width: 9px;
+            height: 5px;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: -3px;
+            background: url("@assets/img/ico_dropdown.svg") no-repeat center center / contain;
+        }
+    }
+    &__dropdown {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        max-height: 1000px;
+        overflow: hidden;
+    }
+    &:not(:hover) &__dropdown {
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: max-height 0s $time-trs, opacity $time-trs, transform $time-trs, box-shadow $time-trs;
+    }
+    &:hover &__dropdown {
+        box-shadow: 0 5px 10px rgba($color-text3, 0.12);
+        transition: max-height 0s, opacity $time-trs, transform $time-trs, box-shadow $time-trs;
+    }
+    &__nav {
+        background-color: #fff;
+        padding: 16px 26px;
+        ul {
+            li {
+                font-size: 15px;
+                line-height: 1.2;
+                font-weight: 400;
+                &:not(:last-child) {
+                    margin-bottom: 5px;
+                }
+                a {
+                    text-decoration: none;
+                    color: $color-text3;
+                    transition: color $time-trs;
+                    &:hover {
+                        color: $color-blue;
+                    }
+                }
+            }
+        }
+    }
+}

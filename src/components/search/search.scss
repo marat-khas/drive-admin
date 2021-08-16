@@ -1,0 +1,13 @@
+@import '@vars';
+
+.search {
+    input {
+        font-size: 13px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: $color-text1;
+        border: 0 none;
+        padding: 5px 10px 5px 23px;
+        background: #fff url("@assets/img/ico_search.svg") no-repeat left center / 14px;
+    }
+}

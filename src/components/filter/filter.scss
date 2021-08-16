@@ -1,0 +1,33 @@
+@import '@vars';
+
+.filter {
+    &__wrapper {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+    &__props {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        margin: -5px -7px;
+    }
+    &__item {
+        width: 140px;
+        padding: 5px 7px;
+        select {
+            width: 100%;
+        }
+    }
+    &__action {
+        margin: -5px -7px -5px 13px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+    }
+    &__btn {
+        padding: 5px 7px;
+    }
+}

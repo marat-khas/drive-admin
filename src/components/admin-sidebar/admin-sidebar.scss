@@ -1,0 +1,187 @@
+@import "@vars";
+
+
+.admin-sidebar {
+    &__head {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    &__name {
+        font-size: 16px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: $color-text1;
+    }
+    &__close {
+        position: fixed;
+        left: 15px;
+        top: 15px;
+        display: block;
+        height: 19px;
+        width: 24px;
+        background: transparent;
+        border: 0 none;
+        border-radius: 0;
+        cursor: pointer;
+        z-index: 10003;
+        &:before,
+        &:after,
+        span {
+            display: block;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            border-radius: 1.5px;
+            background-color: $color-black;
+        }
+        &:before {
+            content: "";
+            top: 0;
+            transition: background-color 0.4s, top 0.4s 0.4s, transform 0.4s;
+        }
+        &:after {
+            content: "";
+            bottom: 0;
+            transition: background-color 0.4s, bottom 0.4s 0.4s, transform 0.4s;
+        }
+        span {
+            top: 8px;
+            transition: background-color 0.4s, width 0s 0.4s;
+        }
+    }
+    &__nav.isOpen + &__close {
+        &:before {
+            top: 8px;
+            transform: rotate(45deg);
+            transition: background-color 0.4s, top 0.4s, transform 0.4s 0.4s;
+        }
+        &:after {
+            bottom: 8px;
+            transform: rotate(-45deg);
+            transition: background-color 0.4s, bottom 0.4s, transform 0.4s 0.4s;
+        }
+        span {
+            width: 0;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .admin {
+        &__sidebar {
+            width: 285px;
+        }
+    }
+    .admin-sidebar {
+        &__head {
+            min-height: 68px;
+        }
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .admin {
+        &__sidebar {
+            width: 240px;
+        }
+    }
+    .admin-sidebar {
+        &__head {
+            min-height: 50px;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .admin {
+        &__sidebar {
+            position: relative;
+            flex-shrink: 0;
+            background: #fff;
+            box-shadow: 0 1px 75px rgba($color-text3, 0.11), 0 2px 4px rgba($color-text3, 0.12),
+                0 8px 11px rgba($color-text3, 0.1), 0 4px 18px rgba($color-text3, 0.1);
+            z-index: 1;
+        }
+    }
+    .admin-sidebar {
+        &__head {
+            padding-left: 49px;
+            border-bottom: 1px solid rgba($color-text3, 0.12);
+        }
+        &__close {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .admin {
+        &__sidebar {
+            width: 100%;
+        }
+    }
+    .admin-sidebar {
+        &__nav {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-color: #fff;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10002;
+            .nav {
+                border-top: 1px solid rgba(90, 97, 105, 0.12);
+                width: 100%;
+            }
+            &:not(.isOpen) {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+    .admin-sidebar {
+        &__head {
+            position: fixed;
+            left: 70px;
+            top: 14px;
+            z-index: 10002;
+        }
+    }
+}
+
+@media (min-width: 576px) {
+    .admin-sidebar {
+        &__logo {
+            margin-right: 8px;
+            svg {
+                width: 22px;
+                height: 22px;
+            }
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .admin-sidebar {
+        &__logo {
+            svg {
+                width: 32px;
+                height: 32px;
+            }
+        }
+        &__name {
+            display: none;
+        }
+        &__head {
+            display: none;
+        }
+    }
+}

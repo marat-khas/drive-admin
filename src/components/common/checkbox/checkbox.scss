@@ -1,0 +1,77 @@
+@import "@vars";
+
+.checkbox {
+    input {
+        display: none;
+    }
+    label {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        padding-left: 20px;
+        line-height: 1.2;
+        font-weight: 300;
+        color: #998;
+        cursor: pointer;
+        &:before,
+        &:after {
+            content: "";
+            position: absolute;
+            box-sizing: border-box;
+        }
+        &:before {
+            width: 12px;
+            height: 12px;
+            left: 0;
+            top: 2px;
+            border: 1px solid #998;
+            transition: border-color $time-trs;
+        }
+        &:after {
+            width: 13px;
+            height: 10px;
+            left: 2px;
+            top: 2px;
+            background: url("@assets/img/ico_check.svg") no-repeat center center / contain;
+            transform: scale(0);
+        }
+    }
+    input:not(:checked):not(:disabled) + label {
+        color: $color-black;
+        &:hover {
+            &:before {
+                border-color: $color-black;
+            }
+        }
+    }
+    input:checked + label {
+        &:after {
+            transform: scale(1);
+        }
+    }
+    input:checked:not(:disabled) + label {
+        color: $color-black;
+        &:before {
+            border-color: $color-green;
+        }
+    }
+    input:disabled + label {
+        cursor: default;
+    }
+}
+
+@media (min-width: 576px) {
+    .checkbox {
+        label {
+            font-size: 14px;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .checkbox {
+        label {
+            font-size: 13px;
+        }
+    }
+}

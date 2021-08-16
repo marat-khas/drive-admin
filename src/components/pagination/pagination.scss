@@ -1,0 +1,36 @@
+@import '@vars';
+
+.pagination {
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__page {
+        font-size: 15px;
+        line-height: 1;
+        font-weight: 400;
+        color: $color-blue;
+        margin: 0 3px;
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            color: $color-blue;
+            text-decoration: none;
+            padding: 0 5px;
+            cursor: pointer;
+            transition: background-color $time-trs, color $time-trs;
+        }
+        &.isDisabled {
+            display: none;
+        }
+        &.isActive a {
+            background-color: $color-blue;
+            color: #fff;
+        }
+    }
+}

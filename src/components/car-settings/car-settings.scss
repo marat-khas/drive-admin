@@ -1,0 +1,172 @@
+@import "@vars";
+
+.car-settings {
+    width: 100%;
+    flex: 1;
+    &__form {
+        min-height: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    &__body {
+        width: 100%;
+        padding: 20px;
+    }
+    &__input {
+        display: flex;
+        align-items: stretch;
+        justify-content: flex-start;
+        &:not(:last-child) {
+            margin-bottom: 5px;
+        }
+    }
+    &__add {
+        flex-shrink: 0;
+        position: relative;
+        width: 30px;
+        height: 30px;
+        margin-left: 8px;
+        border: 1px solid $color-gray1;
+        border-radius: 4px;
+        margin-top: 21px;
+        cursor: pointer;
+        transition: border-color $time-trs;
+        &:before,
+        &:after {
+            content: "";
+            width: 16px;
+            height: 2px;
+            position: absolute;
+            background-color: $color-gray1;
+            left: 50%;
+            top: 50%;
+            margin: -1px 0 0 -8px;
+            transition: background-color $time-trs;
+        }
+        &:after {
+            transform-origin: 50% 50%;
+            transform: rotate(90deg);
+        }
+        &:hover {
+            border-color: $color-blue;
+            &:before,
+            &:after {
+                background-color: $color-blue;
+            }
+        }
+    }
+    &__colors {
+        ul {
+            li {
+                &:not(:last-child) {
+                    margin-bottom: 8px;
+                }
+                span {
+                    display: inline-block;
+                    vertical-align: top;
+                    position: relative;
+                    font-size: 10px;
+                    line-height: 1.3;
+                    font-weight: 400;
+                    color: $color-text2;
+                    padding-left: 21px;
+                    cursor: pointer;
+                    transition: color $time-trs;
+                    &:hover {
+                        color: $color-blue;
+                    }
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 13px;
+                        height: 13px;
+                        background: $color-blue url("@assets/img/ico_check_white.svg") no-repeat center center / 8px;
+                        border-radius: 2px;
+                    }
+                }
+            }
+        }
+    }
+    &__foot {
+        width: 100%;
+        margin-top: auto;
+        padding: 20px;
+    }
+}
+
+@media (min-width: 576px) {
+    .car-settings {
+        &__body {
+            padding: 20px;
+        }
+        &__foot {
+            padding: 20px;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .car-settings {
+        &__body {
+            padding: 15px;
+        }
+        &__foot {
+            padding: 15px;
+        }
+    }
+}
+
+@media (min-width: 420px) {
+    .car-settings {
+        &__wrapper {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin: -8px -10px;
+        }
+        &__item {
+            width: 50%;
+            padding: 8px 10px;
+        }
+        &__action {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin: -4px -6px;
+        }
+        &__btn {
+            padding: 4px 6px;
+            &--delete {
+                flex: 1;
+                button {
+                    display: block;
+                    margin-left: auto;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 419px) {
+    .car-settings {
+        &__item {
+            &:not(:last-child) {
+                margin-bottom: 10px;
+            }
+        }
+        &__btn {
+            &:not(:last-child) {
+                margin-bottom: 10px;
+            }
+            button {
+                width: 100%;
+                text-align: center; 
+            }
+        }
+    }
+}
