@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { AdminCar } from '@components/admin-car';
 import { AdminCars } from '@components/admin-cars';
 import { AdminOrders } from '@components/admin-orders';
+import { AdminPoints } from '@components/admin-points';
 import { Error } from '@components/error';
 import { ROUTES } from '@constants/routes';
 
@@ -16,6 +17,7 @@ export const AdminBody: FC = () => (
                 <Route exact path={ROUTES.ORDERS} component={AdminOrders} />
                 <Route path={ROUTES.CARS} component={AdminCars} />
                 <Route path={`${ROUTES.CAR}/:id`} component={AdminCar} />
+                <Route path={ROUTES.POINTS} component={AdminPoints} />
                 <Route path={ROUTES.ERROR}>
                     <div className='admin__error'>
                         <Error

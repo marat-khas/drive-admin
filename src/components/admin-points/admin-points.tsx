@@ -1,17 +1,17 @@
 import { FC } from 'react';
 
-import { Cars } from '@components/cars';
+import { Points } from '@components/points';
 
-export const AdminCars: FC = () => (
+export const AdminPoints: FC = () => (
     <>
         <div className='admin__title'>
-            <h1>Список автомобилей</h1>
+            <h1>Список офисов</h1>
         </div>
         <div className='admin__container'>
             <div className='admin__row'>
                 <div className='admin__col'>
                     <div className='admin__wrap'>
-                        <Cars />
+                        <Points />
                     </div>
                 </div>
             </div>

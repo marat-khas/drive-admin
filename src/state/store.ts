@@ -10,6 +10,7 @@ import { FilterReducer } from '@state/filter/reducer';
 import { GlobalReducer } from '@state/global/reducer';
 import { modelsReducer } from '@state/models/reducer';
 import { OrderReducer } from '@state/order/reducer';
+import { pointsReducer } from '@state/points/reducer';
 import { RootState } from '@state/types';
 import { UserReducer } from '@state/user/reducer';
 
@@ -19,6 +20,7 @@ const rootReducer = combineReducers<RootState>({
     cars: carsReducer,
     models: modelsReducer,
     cities: citiesReducer,
+    points: pointsReducer,
     categories: categoriesReducer,
     user: UserReducer,
     order: OrderReducer,

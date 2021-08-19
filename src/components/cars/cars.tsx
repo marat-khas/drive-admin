@@ -37,7 +37,7 @@ export const Cars: FC = () => {
         if (!categories) {
             dispatch(GetCategoriesAction(history));
         }
-    }, [categories, dispatch, history]);
+    }, [categories]);
 
     const categoryFilter = categories
         ? {

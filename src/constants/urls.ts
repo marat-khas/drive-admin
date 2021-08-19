@@ -9,3 +9,4 @@ export const ORDER_URL = '/db/order';
 export const CITY_URL = `/db/city`;
 export const CAR_URL = `/db/car`;
 export const CATEGORY_URL = `/db/category`;
+export const POINT_URL = `/db/point`;
