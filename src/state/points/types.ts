@@ -16,6 +16,7 @@ export interface PointsState {
 export enum PointsActionTypes {
     GET_POINTS_SUCCESS = 'GET_POINTS_SUCCESS',
     POINTS_COUNT = 'POINTS_COUNT',
+    POINTS_CHANGE = 'POINTS_CHANGE',
 }
 
 export interface GetPoints {
@@ -28,4 +29,12 @@ export interface CountPoints {
     payload: number;
 }
 
-export type PointsAction = GetPoints | CountPoints;
+export interface ChangePoints {
+    type: PointsActionTypes.POINTS_CHANGE;
+    payload: {
+        id: string;
+        data: Partial<Point>;
+    };
+}
+
+export type PointsAction = GetPoints | CountPoints | ChangePoints;

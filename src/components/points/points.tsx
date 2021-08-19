@@ -4,9 +4,10 @@ import { useHistory } from 'react-router-dom';
 
 import { Filter } from '@components/filter';
 import { Pagination } from '@components/pagination';
+import { PointsItem } from '@components/points/points-item';
 import { GetCitiesAction } from '@state/cities/actions';
 import { PointsFilterUpdateAction } from '@state/filter/actions';
-import { GetPointsAction } from '@state/points/actions';
+import { PointsGetAction } from '@state/points/actions';
 import {
     getCities,
     getPoints,
@@ -27,7 +28,7 @@ export const Points: FC = () => {
 
     useEffect(() => {
         if (!points) {
-            dispatch(GetPointsAction(history));
+            dispatch(PointsGetAction(history));
         }
     }, [points]);
 
@@ -73,7 +74,7 @@ export const Points: FC = () => {
         };
         dispatch(PointsFilterUpdateAction(newFilter));
         dispatch(
-            GetPointsAction(history, queryString({ ...filter, ...newFilter }))
+            PointsGetAction(history, queryString({ ...filter, ...newFilter }))
         );
     };
 
@@ -84,7 +85,7 @@ export const Points: FC = () => {
         };
         dispatch(PointsFilterUpdateAction(newFilter));
         dispatch(
-            GetPointsAction(history, queryString({ ...filter, ...newFilter }))
+            PointsGetAction(history, queryString({ ...filter, ...newFilter }))
         );
     };
 
@@ -96,7 +97,7 @@ export const Points: FC = () => {
             })
         );
         dispatch(
-            GetPointsAction(
+            PointsGetAction(
                 history,
                 queryString({
                     ...filter,
@@ -122,25 +123,13 @@ export const Points: FC = () => {
                             <div className='entities__th'>Город</div>
                             <div className='entities__th'>Название</div>
                             <div className='entities__th'>Адрес</div>
+                            <div className='entities__th' />
                         </div>
                     </div>
                     <div className='entities__tbody'>
                         {points ? (
                             points.map((point) => (
-                                <div
-                                    className='entities__tr entities__link'
-                                    key={point.id}
-                                >
-                                    <div className='entities__td'>
-                                        {point.cityId?.name}
-                                    </div>
-                                    <div className='entities__td'>
-                                        {point.name}
-                                    </div>
-                                    <div className='entities__td'>
-                                        {point.address}
-                                    </div>
-                                </div>
+                                <PointsItem point={point} key={point.id} />
                             ))
                         ) : (
                             <>Загрузка пунктов выдачи</>

@@ -18,6 +18,19 @@ export const pointsReducer = (
                 count: action.payload,
             };
         }
+        case PointsActionTypes.POINTS_CHANGE: {
+            return {
+                ...state,
+                data: state.data
+                    ? state.data?.map((item) => {
+                          if (item.id === action.payload.id) {
+                              return { ...item, ...action.payload.data };
+                          }
+                          return item;
+                      })
+                    : null,
+            };
+        }
         default:
             return state;
     }
