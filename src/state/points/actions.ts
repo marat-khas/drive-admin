@@ -2,7 +2,7 @@ import { History } from 'history';
 import { Dispatch } from 'redux';
 
 import { ROUTES } from '@constants/routes';
-import { changePoint, getPoints } from '@services/point';
+import { addPoint, changePoint, getPoints } from '@services/point';
 import {
     LoadingEndAction,
     LoadingStartAction,
@@ -41,7 +41,7 @@ export const PointsGetAction =
                 dispatch(
                     ModalShowAction({
                         head: 'Ошибка!',
-                        body: error,
+                        body: error.response.data,
                     })
                 );
             })
@@ -66,6 +66,32 @@ export const PointChangeAction =
         changePoint(id, data)
             .then(() => {
                 dispatch(PointChangeSuccessAction({ id, data }));
+            })
+            .catch((error) => {
+                dispatch(
+                    ModalShowAction({
+                        head: 'Ошибка!',
+                        body: error.response.data,
+                    })
+                );
+            })
+            .finally(() => {
+                dispatch(LoadingEndAction(action));
+            });
+    };
+
+export const PointsAddAction =
+    (data: Omit<Point, 'id'>) => (dispatch: Dispatch<any>) => {
+        const action = 'Отправка данных';
+        dispatch(LoadingStartAction(action));
+        addPoint(data)
+            .then(() => {
+                dispatch(
+                    ModalShowAction({
+                        head: 'Готово!',
+                        body: 'Пункт выдачи успешно добавлен',
+                    })
+                );
             })
             .catch((error) => {
                 dispatch(

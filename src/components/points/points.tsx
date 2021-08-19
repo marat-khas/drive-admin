@@ -1,9 +1,11 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import { Button } from '@components/common/button';
 import { Filter } from '@components/filter';
 import { Pagination } from '@components/pagination';
+import { PointsAdd } from '@components/points/points-add';
 import { PointsItem } from '@components/points/points-item';
 import { GetCitiesAction } from '@state/cities/actions';
 import { PointsFilterUpdateAction } from '@state/filter/actions';
@@ -25,6 +27,8 @@ export const Points: FC = () => {
     const points = useSelector(getPoints);
     const filter = useSelector(getPointsFilter);
     const cities = useSelector(getCities);
+
+    const [addOpen, setAddOpen] = useState(false);
 
     useEffect(() => {
         if (!points) {
@@ -117,6 +121,22 @@ export const Points: FC = () => {
                 />
             </div>
             <div className='entities__body'>
+                <div className='entities__create'>
+                    <Button
+                        bg='green'
+                        onClick={() => {
+                            setAddOpen(true);
+                        }}
+                    >
+                        Добавить новый офис
+                    </Button>
+                    <PointsAdd
+                        open={addOpen}
+                        closeHandle={() => {
+                            setAddOpen(false);
+                        }}
+                    />
+                </div>
                 <div className='entities__table'>
                     <div className='entities__thead'>
                         <div className='entities__tr'>

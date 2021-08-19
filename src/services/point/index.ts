@@ -15,3 +15,6 @@ export const changePoint = (
     id: string,
     data: Partial<Point>
 ): Promise<string> => baseApi.put(`${POINT_URL}/${id}`, data);
+
+export const addPoint = (data: Omit<Point, 'id'>): Promise<string> =>
+    baseApi.post(POINT_URL, data);
