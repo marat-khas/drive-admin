@@ -1,5 +1,5 @@
 import { CarAction, CarActionTypes } from '@state/car/types';
-import { imgSrc } from '@utils/img-src';
+import { imageSrc } from '@utils/image-src';
 
 import { CarsStateDefault } from './default';
 import { CarsAction, CarsActionTypes, CarsState } from './types';
@@ -15,7 +15,10 @@ export const carsReducer = (
                 data: action.payload
                     ? action.payload.map((car) => {
                           const { path } = car.thumbnail;
-                          return { ...car, thumbnail: { path: imgSrc(path) } };
+                          return {
+                              ...car,
+                              thumbnail: { path: imageSrc(path) },
+                          };
                       })
                     : null,
             };

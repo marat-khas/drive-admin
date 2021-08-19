@@ -44,6 +44,12 @@ export const OrderChangeAction =
         changeOrder(id, data)
             .then(() => {
                 dispatch(OrderChangeSuccessAction({ id, data }));
+                dispatch(
+                    ModalShowAction({
+                        head: 'Готово!',
+                        body: 'Данные заказа успешно обновлены',
+                    })
+                );
             })
             .catch((error) => {
                 dispatch(

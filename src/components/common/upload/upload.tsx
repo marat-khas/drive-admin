@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { FC, useState } from 'react';
 
 import './upload.scss';
 
@@ -10,21 +10,17 @@ export const Upload: FC<UploadProps> = ({
     btnText = 'Обзор',
     onChange,
 }) => {
-    const [value, setValue] = useState<string | null>(null);
-    const changeHandle = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value);
-    };
+    const [value, setValue] = useState('');
     return (
         <div className='upload'>
             <input
                 type='file'
+                accept='image/png, image/jpeg'
                 id={id}
                 className='upload__input'
                 onChange={(e) => {
-                    changeHandle(e);
-                    if (onChange) {
-                        onChange(e.target.value);
-                    }
+                    setValue(e.target.value);
+                    onChange(e);
                 }}
             />
             <label htmlFor={id} className='upload__label'>

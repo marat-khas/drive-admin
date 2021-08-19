@@ -23,13 +23,23 @@ export const getCar = (id: string): Promise<Car> =>
 export const changeCar = (
     id: string,
     accessToken: string,
-    data: Partial<Car>
-): Promise<string> =>
-    baseApi.put(`${CAR_URL}/${id}`, data, {
+    data: Partial<Omit<Car, 'thumbnail'>> & { thumbnail?: File }
+): Promise<string> => {
+    const formData = Object.entries(data).reduce((acc, [key, value]) => {
+        if (value instanceof File) {
+            acc.append(key, value);
+        } else {
+            acc.append(key, JSON.stringify(value));
+        }
+        return acc;
+    }, new FormData());
+    return baseApi.put(`${CAR_URL}/${id}`, formData, {
         headers: {
             Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'multipart/form-data',
         },
     });
+};
 
 export const deleteCar = (id: string, accessToken: string): Promise<string> =>
     baseApi.delete(`${CAR_URL}/${id}`, {

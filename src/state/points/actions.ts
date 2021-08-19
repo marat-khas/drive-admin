@@ -66,6 +66,12 @@ export const PointChangeAction =
         changePoint(id, data)
             .then(() => {
                 dispatch(PointChangeSuccessAction({ id, data }));
+                dispatch(
+                    ModalShowAction({
+                        head: 'Готово!',
+                        body: 'Пункт выдачи успешно обновлен',
+                    })
+                );
             })
             .catch((error) => {
                 dispatch(

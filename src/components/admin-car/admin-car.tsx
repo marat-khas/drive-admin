@@ -1,9 +1,10 @@
-import { FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import isEqual from 'lodash.isequal';
 
+import CarPlaceholder from '@assets/img/car_placeholder.jpg';
 import { CarCard } from '@components/car-card';
 import { CarSettings } from '@components/car-settings';
 import { Confirm } from '@components/confirm';
@@ -14,6 +15,7 @@ import {
 } from '@state/car/actions';
 import { Car } from '@state/cars/types';
 import { getCar } from '@state/selectors';
+import { imageSrc } from '@utils/image-src';
 
 export const AdminCar: FC = () => {
     const dispatch = useDispatch();
@@ -24,7 +26,8 @@ export const AdminCar: FC = () => {
     const { id } = useParams<{ id: string | undefined }>();
     const car = useSelector(getCar);
 
-    const [img, setImg] = useState('');
+    const [img, setImg] = useState<File | null>(null);
+    const [imgSrc, setImgSrc] = useState('');
     const [description, setDescription] = useState('');
     const [name, setName] = useState('');
     const [category, setCategory] = useState<{
@@ -47,6 +50,10 @@ export const AdminCar: FC = () => {
 
     const updateStateFromStore = () => {
         if (car) {
+            setImgSrc(
+                car.thumbnail ? imageSrc(car.thumbnail.path) : CarPlaceholder
+            );
+            setImg(null);
             if (
                 car.description !== undefined &&
                 car.description !== description
@@ -68,11 +75,10 @@ export const AdminCar: FC = () => {
     useEffect(updateStateFromStore, [car]);
 
     const changeHandle = () => {
-        const newCar: Partial<Car> = {};
-        if (img && img !== car?.thumbnail.path) {
-            newCar.thumbnail = {
-                path: img,
-            };
+        const newCar: Partial<Omit<Car, 'thumbnail'>> & { thumbnail?: File } =
+            {};
+        if (img) {
+            newCar.thumbnail = img;
         }
         if (description && description !== car?.description) {
             newCar.description = description;
@@ -106,6 +112,14 @@ export const AdminCar: FC = () => {
         setConfirmOpen(false);
     };
 
+    const imgChangeHandle = (e: ChangeEvent<HTMLInputElement>) => {
+        const { files } = e.target;
+        if (files) {
+            setImg(files[0]);
+            setImgSrc(URL.createObjectURL(files[0]));
+        }
+    };
+
     return (
         <>
             <div className='admin__title'>
@@ -118,7 +132,8 @@ export const AdminCar: FC = () => {
                             <div className='admin__wrap'>
                                 <CarCard
                                     car={car}
-                                    imgChangeHandle={setImg}
+                                    src={imgSrc}
+                                    imgChangeHandle={imgChangeHandle}
                                     descValue={description}
                                     descChangeHandle={setDescription}
                                 />

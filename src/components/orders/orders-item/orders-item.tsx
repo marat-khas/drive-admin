@@ -5,7 +5,7 @@ import CarPlaceholder from '@assets/img/car_placeholder.jpg';
 import { Checkbox } from '@components/common/checkbox';
 import { OrderChangeAction } from '@state/order/actions';
 import { Order } from '@state/order/types';
-import { imgSrc } from '@utils/img-src';
+import { imageSrc } from '@utils/image-src';
 import { numSpace } from '@utils/num-space';
 
 import './orders-item.scss';
@@ -47,7 +47,7 @@ export const OrdersItem: FC<OrdersItemProps> = ({ order }) => {
     }, [editMode, order.price, price]);
 
     const img = order.carId?.thumbnail.path
-        ? imgSrc(order.carId?.thumbnail.path)
+        ? imageSrc(order.carId?.thumbnail.path)
         : CarPlaceholder;
 
     const date = `${new Date(order.dateFrom).toLocaleDateString()} — ${new Date(

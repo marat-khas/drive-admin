@@ -55,14 +55,13 @@ export const CarChangeAction =
     }: {
         id: string;
         accessToken: string;
-        data: Partial<Car>;
+        data: Partial<Omit<Car, 'thumbnail'>> & { thumbnail?: File };
     }) =>
     (dispatch: Dispatch<any>) => {
         const action = 'Обновление данных авто';
         dispatch(LoadingStartAction(action));
         changeCar(id, accessToken, data)
             .then(() => {
-                dispatch(CarChangeSuccessAction({ id, data }));
                 dispatch(
                     ModalShowAction({
                         head: 'Готово!',
