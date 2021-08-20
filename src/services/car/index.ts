@@ -1,6 +1,7 @@
 import { CAR_URL } from '@constants/urls';
 import { baseApi } from '@services/base';
 import { Car } from '@state/cars/types';
+import { Category } from '@state/categories/types';
 
 import { GetCarResponse, GetCarsResponse } from './types';
 
@@ -26,10 +27,21 @@ export const changeCar = (
     data: Partial<Omit<Car, 'thumbnail'>> & { thumbnail?: File }
 ): Promise<string> => {
     const formData = Object.entries(data).reduce((acc, [key, value]) => {
-        if (value instanceof File) {
-            acc.append(key, value);
-        } else {
-            acc.append(key, JSON.stringify(value));
+        switch (key) {
+            case 'categoryId':
+                acc.append(key, (value as Category).id);
+                break;
+            case 'colors':
+                (value as string[]).forEach((color) => {
+                    acc.append(key, color);
+                });
+                break;
+            case 'thumbnail':
+                acc.append(key, value as File);
+                break;
+            default:
+                acc.append(key, JSON.stringify(value));
+                break;
         }
         return acc;
     }, new FormData());
