@@ -6,6 +6,12 @@ export const getModal = (state: RootState) => state.global.modal;
 
 export const getCities = (state: RootState) => state.cities.cities;
 
+export const getPoints = (state: RootState) => state.points.data;
+
+export const getPointsCount = (state: RootState) => state.points.count;
+
+export const getPointsFilter = (state: RootState) => state.filter.points;
+
 export const getCar = (state: RootState) => state.car.car;
 
 export const getCars = (state: RootState) => state.cars.data;

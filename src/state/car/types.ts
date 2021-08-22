@@ -22,12 +22,27 @@ export interface CarState {
 }
 
 export enum CarActionTypes {
-    GET_CAR_SUCCESS = 'GET_CAR_SUCCESS',
+    CAR_GET = 'CAR_GET',
+    CAR_CHANGE = 'CAR_CHANGE',
+    CAR_DELETE = 'CAR_DELETE',
 }
 
-export interface GetCar {
-    type: CarActionTypes.GET_CAR_SUCCESS;
+export interface CarGet {
+    type: CarActionTypes.CAR_GET;
     payload: Car;
 }
 
-export type CarAction = GetCar;
+export interface CarChange {
+    type: CarActionTypes.CAR_CHANGE;
+    payload: {
+        id: string;
+        data: Partial<Car>;
+    };
+}
+
+export interface CarDelete {
+    type: CarActionTypes.CAR_DELETE;
+    payload: string;
+}
+
+export type CarAction = CarGet | CarChange | CarDelete;

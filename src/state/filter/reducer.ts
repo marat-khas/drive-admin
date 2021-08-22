@@ -18,6 +18,12 @@ export const FilterReducer = (
                 cars: { ...state.cars, ...action.payload },
             };
         }
+        case FilterActionTypes.POINTS_FILTER_UPDATE: {
+            return {
+                ...state,
+                points: { ...state.points, ...action.payload },
+            };
+        }
         default:
             return state;
     }

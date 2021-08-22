@@ -19,7 +19,7 @@
         align-items: stretch;
         justify-content: flex-start;
         &:not(:last-child) {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
     }
     &__add {
@@ -30,7 +30,6 @@
         margin-left: 8px;
         border: 1px solid $color-gray1;
         border-radius: 4px;
-        margin-top: 21px;
         cursor: pointer;
         transition: border-color $time-trs;
         &:before,

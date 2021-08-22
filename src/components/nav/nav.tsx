@@ -18,8 +18,14 @@ export const Nav: FC<NavProps> = ({ itemClickHandle }) => {
         {
             id: 1,
             ico: MenuIco1,
-            label: 'Список авто',
+            label: 'Автомобили',
             to: ROUTES.CARS,
+        },
+        {
+            id: 2,
+            ico: MenuIco1,
+            label: 'Офисы',
+            to: ROUTES.POINTS,
         },
     ];
     return (

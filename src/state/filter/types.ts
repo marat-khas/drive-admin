@@ -15,14 +15,22 @@ export interface CarsFilterState {
     categoryId: string | null;
 }
 
+export interface PointsFilterState {
+    limit: number;
+    page: number;
+    cityId: string | null;
+}
+
 export interface FilterState {
     orders: OrdersFilterState;
     cars: CarsFilterState;
+    points: PointsFilterState;
 }
 
 export enum FilterActionTypes {
     ORDERS_FILTER_UPDATE = 'ORDERS_FILTER_UPDATE',
     CARS_FILTER_UPDATE = 'CARS_FILTER_UPDATE',
+    POINTS_FILTER_UPDATE = 'POINTS_FILTER_UPDATE',
 }
 
 export interface OrdersFilterUpdate {
@@ -32,7 +40,15 @@ export interface OrdersFilterUpdate {
 
 export interface CarsFilterUpdate {
     type: FilterActionTypes.CARS_FILTER_UPDATE;
-    payload: Record<keyof OrdersFilterState, any>;
+    payload: Record<keyof CarsFilterState, any>;
 }
 
-export type FilterAction = OrdersFilterUpdate | CarsFilterUpdate;
+export interface PointsFilterUpdate {
+    type: FilterActionTypes.POINTS_FILTER_UPDATE;
+    payload: Record<keyof PointsFilterState, any>;
+}
+
+export type FilterAction =
+    | OrdersFilterUpdate
+    | CarsFilterUpdate
+    | PointsFilterUpdate;

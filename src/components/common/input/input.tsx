@@ -12,17 +12,24 @@ export const Input: FC<InputProps> = ({
     type = 'text',
     label,
     error,
+    keyUpHandle,
 }) => {
-    const classes = classNames('input', {
-        'input--error': error,
+    const classes = classNames('inp', {
+        'inp--error': error,
     });
     return (
         <div className={classes}>
-            <label htmlFor={id} className='input__label'>
+            <label htmlFor={id} className='inp__label'>
                 {label}
             </label>
-            <Field type={type} name={name} id={id} className='input__inp' />
-            <span className='input__error'>
+            <Field
+                type={type}
+                name={name}
+                id={id}
+                className='inp__input'
+                onKeyUp={keyUpHandle}
+            />
+            <span className='inp__error'>
                 <ErrorMessage name={name} />
             </span>
         </div>

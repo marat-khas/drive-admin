@@ -1,8 +1,10 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 
 import CarPlaceholder from '@assets/img/car_placeholder.jpg';
+import { CarsAdd } from '@components/cars/cars-add';
+import { Button } from '@components/common/button';
 import { Filter } from '@components/filter';
 import { Pagination } from '@components/pagination';
 import { GetCarsAction } from '@state/cars/actions';
@@ -19,6 +21,8 @@ import { queryString } from '@utils/query string';
 export const Cars: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const [addOpen, setAddOpen] = useState(false);
 
     const pageCount = useSelector(getCarsCount);
 
@@ -37,7 +41,7 @@ export const Cars: FC = () => {
         if (!categories) {
             dispatch(GetCategoriesAction(history));
         }
-    }, [categories, dispatch, history]);
+    }, [categories]);
 
     const categoryFilter = categories
         ? {
@@ -118,6 +122,22 @@ export const Cars: FC = () => {
                 />
             </div>
             <div className='entities__body'>
+                <div className='entities__create'>
+                    <Button
+                        bg='green'
+                        onClick={() => {
+                            setAddOpen(true);
+                        }}
+                    >
+                        Добавить новое авто
+                    </Button>
+                    <CarsAdd
+                        open={addOpen}
+                        closeHandle={() => {
+                            setAddOpen(false);
+                        }}
+                    />
+                </div>
                 <div className='entities__table'>
                     <div className='entities__thead'>
                         <div className='entities__tr'>
@@ -132,6 +152,7 @@ export const Cars: FC = () => {
                         {cars ? (
                             cars.map((car) => (
                                 <Link
+                                    key={car.id}
                                     to={`/admin/car/${car.id}`}
                                     className='entities__tr entities__link'
                                 >

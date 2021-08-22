@@ -1,129 +1,223 @@
-import { FC, useState } from 'react';
-import { Formik } from 'formik';
+import { ChangeEvent, FC, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-import { CarSettingsSchema } from '@components/car-settings/schema';
-import { CarSettingsSchemaProps } from '@components/car-settings/types';
+import { CarSettingsProps } from '@components/car-settings/types';
 import { Button } from '@components/common/button';
-import { Input } from '@components/common/input/input';
-import { Car } from '@state/cars/types';
+import { GetCategoriesAction } from '@state/categories/actions';
+import { getCategories } from '@state/selectors';
+import { isNumber } from '@utils/is-number';
 
 import './car-settings.scss';
 
-export const CarSettings: FC<{ car: Car }> = ({ car }) => {
-    const [colors, setColors] = useState(car.colors || []);
+export const CarSettings: FC<CarSettingsProps> = ({
+    nameValue,
+    nameChangeHandle,
+    categoryValue,
+    categoryChangeHandle,
+    tankValue,
+    tankChangeHandle,
+    numberValue,
+    numberChangeHandle,
+    colors,
+    colorsChangeHandle,
+    applyHandle,
+    cancelHandle,
+    deleteHandle,
+}) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const categories = useSelector(getCategories);
+
+    useEffect(() => {
+        if (!categories) {
+            dispatch(GetCategoriesAction(history));
+        }
+    }, [categories]);
+
+    const tankChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        if (value === '' || (isNumber(value) && parseInt(value, 10) <= 100)) {
+            tankChangeHandle(e.target.value);
+        }
+    };
+
+    const colorRef = useRef<HTMLInputElement | null>(null);
 
     const addColor = (color: string) => {
         if (color.trim() !== '' && colors.indexOf(color) === -1) {
-            setColors([...colors, color]);
+            colorsChangeHandle([...colors, color]);
         }
     };
 
     const removeColor = (color: string) => {
-        setColors([...colors.filter((colorName) => colorName !== color)]);
-    };
-
-    const initialValues: CarSettingsSchemaProps = {
-        model: car.name,
-        type: car.categoryId?.name || '',
-        color: '',
-    };
-
-    const submitHandle = (props: CarSettingsSchemaProps) => {
-        console.log(props);
+        colorsChangeHandle([
+            ...colors.filter((colorName) => colorName !== color),
+        ]);
     };
 
     return (
-        <Formik
-            initialValues={initialValues}
-            validationSchema={CarSettingsSchema}
-            onSubmit={submitHandle}
-        >
-            {({ handleSubmit, errors, touched, values }) => (
-                <div className='car-settings'>
-                    <form
-                        onSubmit={handleSubmit}
-                        className='car-settings__form'
-                    >
-                        <div className='car-settings__body'>
-                            <div className='car-settings__wrapper'>
-                                <div className='car-settings__item'>
-                                    <div className='car-settings__input'>
-                                        <Input
-                                            id='car-settings-model'
-                                            name='model'
-                                            label='Модель автомобиля'
-                                            error={Boolean(
-                                                errors.model && touched.model
-                                            )}
-                                        />
-                                    </div>
-                                </div>
-                                <div className='car-settings__item'>
-                                    <div className='car-settings__input'>
-                                        <Input
-                                            id='car-settings-type'
-                                            name='type'
-                                            label='Тип автомобиля'
-                                            error={Boolean(
-                                                errors.type && touched.type
-                                            )}
-                                        />
-                                    </div>
-                                </div>
-                                <div className='car-settings__item'>
-                                    <div className='car-settings__input'>
-                                        <Input
-                                            id='car-settings-color'
-                                            name='color'
-                                            label='Доступные цвета'
-                                            error={Boolean(
-                                                errors.color && touched.color
-                                            )}
-                                        />
-                                        <div
-                                            className='car-settings__add'
-                                            onClick={() => {
-                                                addColor(values.color);
-                                                values.color = '';
-                                            }}
-                                        />
-                                    </div>
-                                    <div className='car-settings__colors'>
-                                        <ul>
-                                            {colors.map((colorName) => (
-                                                <li key={colorName}>
-                                                    <span
-                                                        onClick={() => {
-                                                            removeColor(
-                                                                colorName
-                                                            );
-                                                        }}
-                                                    >
-                                                        {colorName}
-                                                    </span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
+        <>
+            <div className='car-settings__body'>
+                <div className='car-settings__wrapper'>
+                    <div className='car-settings__item'>
+                        <div className='car-settings__label'>
+                            <label htmlFor='car-name' className='label'>
+                                Модель автомобиля
+                            </label>
+                        </div>
+                        <div className='car-settings__input'>
+                            <input
+                                id='car-name'
+                                className='input'
+                                type='text'
+                                value={nameValue}
+                                onChange={(e) => {
+                                    nameChangeHandle(e.target.value);
+                                }}
+                            />
+                        </div>
+                    </div>
+                    {categories && (
+                        <div className='car-settings__item'>
+                            <div className='car-settings__label'>
+                                <label htmlFor='car-category' className='label'>
+                                    Категория
+                                </label>
+                            </div>
+                            <div className='car-settings__input'>
+                                <select
+                                    id='car-category'
+                                    className='select'
+                                    value={categoryValue?.id}
+                                    onChange={(
+                                        e: ChangeEvent<HTMLSelectElement>
+                                    ) => {
+                                        const selectedCategory =
+                                            categories.find(
+                                                (category) =>
+                                                    category.id ===
+                                                    e.target.value
+                                            );
+                                        if (selectedCategory) {
+                                            categoryChangeHandle(
+                                                selectedCategory
+                                            );
+                                        }
+                                    }}
+                                >
+                                    {categories.map((category) => (
+                                        <option
+                                            key={category.id}
+                                            value={category.id}
+                                        >
+                                            {category.name}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
-                        <div className='car-settings__foot'>
-                            <div className='car-settings__action'>
-                                <div className='car-settings__btn'>
-                                    <Button>Сохранить</Button>
-                                </div>
-                                <div className='car-settings__btn'>
-                                    <Button bg='red'>Отменить</Button>
-                                </div>
-                                <div className='car-settings__btn car-settings__btn--delete'>
-                                    <Button bg='gray'>Удалить</Button>
-                                </div>
-                            </div>
+                    )}
+                    <div className='car-settings__item'>
+                        <div className='car-settings__label'>
+                            <label htmlFor='car-tank' className='label'>
+                                Уровень топлива
+                            </label>
                         </div>
-                    </form>
+                        <div className='car-settings__input'>
+                            <input
+                                id='car-tank'
+                                className='input'
+                                type='text'
+                                value={tankValue}
+                                onChange={tankChange}
+                            />
+                        </div>
+                    </div>
+                    <div className='car-settings__item'>
+                        <div className='car-settings__label'>
+                            <label htmlFor='car-number' className='label'>
+                                Гос. номер
+                            </label>
+                        </div>
+                        <div className='car-settings__input'>
+                            <input
+                                id='car-number'
+                                className='input'
+                                type='text'
+                                value={numberValue}
+                                onChange={(e) => {
+                                    numberChangeHandle(e.target.value);
+                                }}
+                            />
+                        </div>
+                    </div>
+                    <div className='car-settings__item'>
+                        <div className='car-settings__label'>
+                            <label htmlFor='car-colors' className='label'>
+                                Доступные цвета
+                            </label>
+                        </div>
+                        <div className='car-settings__input'>
+                            <input
+                                id='car-colors'
+                                className='input'
+                                type='text'
+                                ref={colorRef}
+                            />
+                            <div
+                                className='car-settings__add'
+                                onClick={() => {
+                                    if (colorRef !== null) {
+                                        addColor(
+                                            (
+                                                colorRef.current as HTMLInputElement
+                                            ).value
+                                        );
+                                        (
+                                            colorRef.current as HTMLInputElement
+                                        ).value = '';
+                                    }
+                                }}
+                            />
+                        </div>
+                        <div className='car-settings__colors'>
+                            <ul>
+                                {colors &&
+                                    colors.map((colorName) => (
+                                        <li key={colorName}>
+                                            <span
+                                                onClick={() => {
+                                                    removeColor(colorName);
+                                                }}
+                                            >
+                                                {colorName}
+                                            </span>
+                                        </li>
+                                    ))}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            )}
-        </Formik>
+            </div>
+            <div className='car-settings__foot'>
+                <div className='car-settings__action'>
+                    <div className='car-settings__btn'>
+                        <Button onClick={applyHandle}>Сохранить</Button>
+                    </div>
+                    <div className='car-settings__btn'>
+                        <Button bg='red' onClick={cancelHandle}>
+                            Отменить
+                        </Button>
+                    </div>
+                    <div className='car-settings__btn car-settings__btn--delete'>
+                        <Button bg='gray' onClick={deleteHandle}>
+                            Удалить
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 };

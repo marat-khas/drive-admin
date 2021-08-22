@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: center;
     background: rgba($color-black, 0.9);
-    z-index: 1100;
+    z-index: 11000;
     &:not(&--open) {
         display: none;
     }

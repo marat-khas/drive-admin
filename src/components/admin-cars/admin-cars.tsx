@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Cars } from '@components/cars/cars';
+import { Cars } from '@components/cars';
 
 export const AdminCars: FC = () => (
     <>

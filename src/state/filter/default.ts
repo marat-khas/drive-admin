@@ -16,4 +16,9 @@ export const FilterStateDefault: FilterState = {
         page: 0,
         categoryId: null,
     },
+    points: {
+        limit: 10,
+        page: 0,
+        cityId: null,
+    },
 };

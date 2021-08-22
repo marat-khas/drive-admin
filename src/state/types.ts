@@ -5,6 +5,7 @@ import { FilterState } from '@state/filter/types';
 import { GlobalState } from '@state/global/types';
 import { ModelsState } from '@state/models/types';
 import { OrderState } from '@state/order/types';
+import { PointsState } from '@state/points/types';
 import { store } from '@state/store';
 import { UserState } from '@state/user/types';
 
@@ -18,6 +19,7 @@ export interface RootState {
     cars: CarsState;
     models: ModelsState;
     cities: CitiesState;
+    points: PointsState;
     categories: CategoriesState;
     user: UserState;
     order: OrderState;
