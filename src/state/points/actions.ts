@@ -86,7 +86,7 @@ export const PointChangeAction =
             });
     };
 
-export const PointsAddAction =
+export const PointAddAction =
     (data: Omit<Point, 'id'>) => (dispatch: Dispatch<any>) => {
         const action = 'Отправка данных';
         dispatch(LoadingStartAction(action));

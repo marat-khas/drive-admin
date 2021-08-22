@@ -21,12 +21,10 @@ export const getCar = (id: string): Promise<Car> =>
         })
         .then((response: GetCarResponse) => response.data.data);
 
-export const changeCar = (
-    id: string,
-    accessToken: string,
-    data: Partial<Omit<Car, 'thumbnail'>> & { thumbnail?: File }
-): Promise<string> => {
-    const formData = Object.entries(data).reduce((acc, [key, value]) => {
+const carData = (
+    data: Partial<Omit<Car, 'id' | 'thumbnail'> & { thumbnail?: File }>
+) =>
+    Object.entries(data).reduce((acc, [key, value]) => {
         switch (key) {
             case 'categoryId':
                 acc.append(key, (value as Category).id);
@@ -45,16 +43,31 @@ export const changeCar = (
         }
         return acc;
     }, new FormData());
-    return baseApi.put(`${CAR_URL}/${id}`, formData, {
+
+export const changeCar = (
+    id: string,
+    accessToken: string,
+    data: Partial<Omit<Car, 'id' | 'thumbnail'> & { thumbnail?: File }>
+): Promise<string> =>
+    baseApi.put(`${CAR_URL}/${id}`, carData(data), {
         headers: {
             Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'multipart/form-data',
         },
     });
-};
 
 export const deleteCar = (id: string, accessToken: string): Promise<string> =>
     baseApi.delete(`${CAR_URL}/${id}`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+
+export const addCar = (
+    data: Omit<Car, 'id' | 'thumbnail'> & { thumbnail?: File },
+    accessToken: string
+): Promise<string> =>
+    baseApi.post(CAR_URL, carData(data), {
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },

@@ -8,7 +8,7 @@ import { Select } from '@components/common/select';
 import { GetCitiesAction } from '@state/cities/actions';
 import { City } from '@state/cities/types';
 import { ModalShowAction } from '@state/global/actions';
-import { PointsAddAction } from '@state/points/actions';
+import { PointAddAction } from '@state/points/actions';
 import { getCities } from '@state/selectors';
 
 import { PointsAddProps } from './types';
@@ -21,31 +21,39 @@ export const PointsAdd: FC<PointsAddProps> = ({ open, closeHandle }) => {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
 
+    const formClear = () => {
+        setName('');
+        setAddress('');
+    };
+
     const cities = useSelector(getCities);
 
     useEffect(() => {
         if (!cities) {
             dispatch(GetCitiesAction(history));
+        } else {
+            setCity(cities[0]);
         }
     }, [cities]);
 
     const submitHandle = () => {
-        if (!name || !address || !city) {
+        if (name && address && city) {
             dispatch(
-                ModalShowAction({
-                    head: 'Ошибка!',
-                    body: 'Все поля должны быть заполнены',
-                })
-            );
-        } else {
-            dispatch(
-                PointsAddAction({
+                PointAddAction({
                     name,
                     address,
                     cityId: city,
                 })
             );
+            formClear();
             closeHandle();
+        } else {
+            dispatch(
+                ModalShowAction({
+                    head: 'Ошибка!',
+                    body: 'Поля со звездочкой должны быть заполнены',
+                })
+            );
         }
     };
 
@@ -60,7 +68,7 @@ export const PointsAdd: FC<PointsAddProps> = ({ open, closeHandle }) => {
                 <div className='entities-add__body'>
                     {cities && (
                         <div className='entities-add__item'>
-                            <label className='label'>Город</label>
+                            <label className='label'>Город*</label>
                             <Select
                                 onChange={(
                                     e: ChangeEvent<HTMLSelectElement>
@@ -80,7 +88,7 @@ export const PointsAdd: FC<PointsAddProps> = ({ open, closeHandle }) => {
                         </div>
                     )}
                     <div className='entities-add__item'>
-                        <label className='label'>Название</label>
+                        <label className='label'>Название*</label>
                         <input
                             type='text'
                             className='input'
@@ -91,7 +99,7 @@ export const PointsAdd: FC<PointsAddProps> = ({ open, closeHandle }) => {
                         />
                     </div>
                     <div className='entities-add__item'>
-                        <label className='label'>Адрес</label>
+                        <label className='label'>Адрес*</label>
                         <input
                             type='text'
                             className='input'

@@ -6,6 +6,7 @@ import { CarSettingsProps } from '@components/car-settings/types';
 import { Button } from '@components/common/button';
 import { GetCategoriesAction } from '@state/categories/actions';
 import { getCategories } from '@state/selectors';
+import { isNumber } from '@utils/is-number';
 
 import './car-settings.scss';
 
@@ -37,10 +38,7 @@ export const CarSettings: FC<CarSettingsProps> = ({
 
     const tankChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-        if (
-            value === '' ||
-            (/^\d*$/.test(value) && parseInt(value, 10) <= 100)
-        ) {
+        if (value === '' || (isNumber(value) && parseInt(value, 10) <= 100)) {
             tankChangeHandle(e.target.value);
         }
     };
