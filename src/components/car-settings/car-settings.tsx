@@ -14,6 +14,10 @@ export const CarSettings: FC<CarSettingsProps> = ({
     nameChangeHandle,
     categoryValue,
     categoryChangeHandle,
+    tankValue,
+    tankChangeHandle,
+    numberValue,
+    numberChangeHandle,
     colors,
     colorsChangeHandle,
     applyHandle,
@@ -30,6 +34,16 @@ export const CarSettings: FC<CarSettingsProps> = ({
             dispatch(GetCategoriesAction(history));
         }
     }, [categories]);
+
+    const tankChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        if (
+            value === '' ||
+            (/^\d*$/.test(value) && parseInt(value, 10) <= 100)
+        ) {
+            tankChangeHandle(e.target.value);
+        }
+    };
 
     const colorRef = useRef<HTMLInputElement | null>(null);
 
@@ -71,7 +85,7 @@ export const CarSettings: FC<CarSettingsProps> = ({
                         <div className='car-settings__item'>
                             <div className='car-settings__label'>
                                 <label htmlFor='car-category' className='label'>
-                                    Тип автомобиля
+                                    Категория
                                 </label>
                             </div>
                             <div className='car-settings__input'>
@@ -107,7 +121,40 @@ export const CarSettings: FC<CarSettingsProps> = ({
                             </div>
                         </div>
                     )}
-
+                    <div className='car-settings__item'>
+                        <div className='car-settings__label'>
+                            <label htmlFor='car-tank' className='label'>
+                                Уровень топлива
+                            </label>
+                        </div>
+                        <div className='car-settings__input'>
+                            <input
+                                id='car-tank'
+                                className='input'
+                                type='text'
+                                value={tankValue}
+                                onChange={tankChange}
+                            />
+                        </div>
+                    </div>
+                    <div className='car-settings__item'>
+                        <div className='car-settings__label'>
+                            <label htmlFor='car-number' className='label'>
+                                Гос. номер
+                            </label>
+                        </div>
+                        <div className='car-settings__input'>
+                            <input
+                                id='car-number'
+                                className='input'
+                                type='text'
+                                value={numberValue}
+                                onChange={(e) => {
+                                    numberChangeHandle(e.target.value);
+                                }}
+                            />
+                        </div>
+                    </div>
                     <div className='car-settings__item'>
                         <div className='car-settings__label'>
                             <label htmlFor='car-colors' className='label'>

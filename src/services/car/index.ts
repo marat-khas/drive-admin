@@ -40,7 +40,7 @@ export const changeCar = (
                 acc.append(key, value as File);
                 break;
             default:
-                acc.append(key, JSON.stringify(value));
+                acc.append(key, value.toString());
                 break;
         }
         return acc;

@@ -9,6 +9,7 @@ import { CarCardProps } from './types';
 export const CarCard: FC<CarCardProps> = ({
     car,
     src,
+    tankValue,
     descValue,
     descChangeHandle,
     imgChangeHandle,
@@ -34,14 +35,16 @@ export const CarCard: FC<CarCardProps> = ({
             <div className='car-card-complete'>
                 <div className='car-card-complete__head'>
                     <div className='car-card-complete__label'>Заполнено</div>
-                    <div className='car-card-complete__label'>74%</div>
+                    <div className='car-card-complete__label'>
+                        {parseInt(tankValue, 10) || 0}%
+                    </div>
                 </div>
                 <div className='car-card-complete__body'>
                     <div className='car-card-complete__scale'>
                         <div
                             className='car-card-complete__fill'
                             style={{
-                                width: '74%',
+                                width: `${parseInt(tankValue, 10) || 0}%`,
                             }}
                         />
                     </div>

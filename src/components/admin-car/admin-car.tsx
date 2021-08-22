@@ -39,6 +39,8 @@ export const AdminCar: FC = () => {
         description: '',
         id: '',
     });
+    const [tank, setTank] = useState('');
+    const [number, setNumber] = useState('');
     const [colors, setColors] = useState<string[]>([]);
     const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -66,6 +68,12 @@ export const AdminCar: FC = () => {
             if (car.categoryId?.id !== category?.id) {
                 setCategory(car.categoryId);
             }
+            if (car.tank && car.tank?.toString() !== tank) {
+                setTank(car.tank.toString());
+            }
+            if (car.number && car.number !== number) {
+                setNumber(car.number);
+            }
             if (!isEqual(car.colors, colors)) {
                 setColors(car.colors);
             }
@@ -80,14 +88,20 @@ export const AdminCar: FC = () => {
         if (img) {
             newCar.thumbnail = img;
         }
-        if (description && description !== car?.description) {
+        if (description !== car?.description) {
             newCar.description = description;
         }
-        if (name && name !== car?.name) {
+        if (name !== car?.name) {
             newCar.name = name;
         }
-        if (category && category.id !== car?.categoryId?.id) {
+        if (category.id !== car?.categoryId?.id) {
             newCar.categoryId = category;
+        }
+        if (tank !== car?.tank?.toString()) {
+            newCar.tank = parseInt(tank, 10);
+        }
+        if (number !== car?.number) {
+            newCar.number = number;
         }
         if (!isEqual(colors, car?.colors)) {
             newCar.colors = colors;
@@ -133,6 +147,7 @@ export const AdminCar: FC = () => {
                                 <CarCard
                                     car={car}
                                     src={imgSrc}
+                                    tankValue={tank}
                                     imgChangeHandle={imgChangeHandle}
                                     descValue={description}
                                     descChangeHandle={setDescription}
@@ -146,9 +161,13 @@ export const AdminCar: FC = () => {
                                 </div>
                                 <CarSettings
                                     nameChangeHandle={setName}
-                                    nameValue={name || ''}
+                                    nameValue={name}
                                     categoryChangeHandle={setCategory}
                                     categoryValue={category}
+                                    tankChangeHandle={setTank}
+                                    tankValue={tank}
+                                    numberChangeHandle={setNumber}
+                                    numberValue={number}
                                     colors={colors}
                                     colorsChangeHandle={setColors}
                                     applyHandle={changeHandle}

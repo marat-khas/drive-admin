@@ -11,6 +11,10 @@ export interface CarSettingsProps {
         description: string;
         id: string;
     }) => void;
+    tankValue: string;
+    tankChangeHandle: (value: string) => void;
+    numberValue: string;
+    numberChangeHandle: (value: string) => void;
     colors: string[];
     colorsChangeHandle: (value: string[]) => void;
     applyHandle: () => void;
